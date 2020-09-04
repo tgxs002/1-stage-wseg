@@ -27,6 +27,12 @@ def add_global_arguments(parser):
     parser.add_argument("--mask-output-dir", type=str, default='results/',
                         help="Path where to save masks")
 
+    # hypter parameter
+    parser.add_argument("--loss_3d", type=float, default=0.0, help="the coefficint of 3d_consistency loss")
+    parser.add_argument("--triplet_margin", type=float, default=3.0, help="the margin value for triplet loss used in 3D consistency")
+    parser.add_argument("--use_triplet", action='store_true')
+    parser.add_argument("--normalize_feature", action='store_true', help="whether to normalize the feature used for consistency")
+
     #
     # Configuration
     #

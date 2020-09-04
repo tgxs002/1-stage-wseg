@@ -1,8 +1,12 @@
 from torch.utils import data
 from .pascal_voc import VOCSegmentation
+from .wikiscenes import WikiSegmentation
+from .wikiscenes_corr import WikiSegmentation_corr
 
 datasets = {
-    'pascal_voc': VOCSegmentation
+    'pascal_voc': VOCSegmentation,
+    'wikiscenes': WikiSegmentation,
+    'wikiscenes_corr': WikiSegmentation_corr
 }
 
 def get_num_classes(args):

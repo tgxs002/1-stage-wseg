@@ -125,34 +125,53 @@ class BaseTrainer(object):
             param_group['lr'] = lr
 
 
-    def _visualise_grid(self, x_all, labels, t, ious=None, tag="visualisation", scores=None):
+    def _visualise_grid(self, x_all, labels, t, ious=None, tag="visualisation", scores=None, save_image=False, epoch=0, index=0, info=None):
 
         # adding the labels to images
         bs, ch, h, w = x_all.size()
-        x_all_new = torch.zeros(bs, ch, h + 16, w)
+        x_all_new = torch.zeros(bs, ch, h + 85, w)
         _, y_labels_idx = torch.max(labels, -1)
-        classNamesOffset = len(self.classNames) - labels.size(1)
-        classNames = self.classNames[classNamesOffset:]
+        classNamesOffset = len(self.classNames) - labels.size(1) - 1
+        classNames = self.classNames[classNamesOffset:-1]
         for b in range(bs):
             label_idx = labels[b]
+            predict_idx = torch.argmax(scores[b]).item()
             label_names = [name for i,name in enumerate(classNames) if label_idx[i].item()]
-            label_name = ", ".join(label_names)
+            predict = classNames[predict_idx]
+
+
+            # label_name =  +  + '\n'
+            row2 = ["Ground truth: " + ", ".join(label_names), "Predict: " + predict, "", ""]
+            for i in range(len(classNames)):
+                row2.append("{} mask".format(classNames[i]))
+            row3 = ["Input image", "Raw output", "PAMR", "Pseudo gt"]
+            for i in range(len(classNames)):
+                row3.append("score: {:.2f}".format(scores[b][i]))
+            row_template = "{:<22}" * (4+len(classNames))
+            label_name = info[b][:200] + '\n' + info[b][200:] + '\n' + row_template.format(*row2) + '\n' + row_template.format(*row3)
 
             ndarr = x_all[b].mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
-            arr = np.zeros((16, w, ch), dtype=ndarr.dtype)
+            arr = np.zeros((85, w, ch), dtype=ndarr.dtype)
             ndarr = np.concatenate((arr, ndarr), 0)
             im = Image.fromarray(ndarr)
             draw = ImageDraw.Draw(im)
 
-            font = ImageFont.truetype("fonts/UbuntuMono-R.ttf", 12)
+            font = ImageFont.truetype("fonts/UbuntuMono-R.ttf", 20)
 
-            # draw.text((x, y),"Sample Text",(r,g,b))
             draw.text((5, 1), label_name, (255,255,255), font=font)
+
+            if save_image:
+                path = "./logs/images/{}/{}/{}/{}".format(self.args.run, epoch, label_names[0], predict)
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                im.save("{}/{:0>4}.{:0>2}.jpg".format(path, index, b))
+
             im_np = np.array(im).astype(np.float)
             x_all_new[b] = (torch.from_numpy(im_np)/255.0).permute(2,0,1)
 
-        summary_grid = vutils.make_grid(x_all_new, nrow=1, padding=8, pad_value=0.9)
-        self.writer.add_image(tag, summary_grid, t)
+        if not save_image:
+            summary_grid = vutils.make_grid(x_all_new, nrow=1, padding=8, pad_value=0.9)
+            self.writer.add_image(tag, summary_grid, t)
 
     def _apply_cmap(self, mask_idx, mask_conf):
         palette = self.trainloader.dataset.get_palette()

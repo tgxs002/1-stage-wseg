@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import math
 
 from models.backbones.base_net import BaseNet
 
@@ -197,7 +198,7 @@ class ResNet50(ResNet):
                                        replace_stride_with_dilation=[False, False, False])
 
         # fixing the parameters
-        self._fix_params([self.conv1, self.bn1])
+        # self._fix_params([self.conv1, self.bn1])
 
         assert not self.deep_base
 

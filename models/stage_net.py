@@ -14,6 +14,8 @@ from models.mods import PAMR
 from models.mods import StochasticGate
 from models.mods import GCI
 
+from torchvision.models import resnet
+
 #
 # Helper classes
 #
@@ -53,17 +55,18 @@ def balanced_mask_loss_ce(mask, pseudo_gt, gt_labels, ignore_index=255):
     - cancel loss if only one class in pseudo_gt
     - weight loss equally between classes
     """
-
+    
     mask = F.interpolate(mask, size=pseudo_gt.size()[-2:], mode="bilinear", align_corners=True)
     
     # indices of the max classes
+    # print(pseudo_gt)  
     mask_gt = torch.argmax(pseudo_gt, 1)
-
+    
     # for each pixel there should be at least one 1
     # otherwise, ignore
     weight = pseudo_gt.sum(1).type_as(mask_gt)
     mask_gt += (1 - weight) * ignore_index
-
+    
     # class weight balances the loss w.r.t. number of pixels
     # because we are equally interested in all classes
     bs,c,h,w = pseudo_gt.size()
@@ -201,7 +204,7 @@ def network_factory(cfg):
             self.num_classes = num_classes
 
             self._init_weights(pre_weights) # initialise backbone weights
-            self._fix_running_stats(self, fix_params=True) # freeze backbone BNs
+            # self._fix_running_stats(self, fix_params=True) # freeze backbone BNs
 
             # Decoder
             self._init_aspp()
@@ -209,6 +212,9 @@ def network_factory(cfg):
 
             self._backbone = None
             self._mask_logits = None
+
+            # self.fc = nn.Linear(100352, 5)
+            # self.r50 = resnet.resnet50(True)
 
         def _init_aspp(self):
             self.aspp = ASPP(self.fan_out(), 8, self.NormLayer)
@@ -248,13 +254,13 @@ def network_factory(cfg):
                                        bnorm(256), nn.ReLU())
 
             # decoder
-            self.last_conv = nn.Sequential(conv2d(256, 256, kernel_size=3, stride=1, padding=1, bias=False),
+            self.decoder = nn.Sequential(conv2d(256, 256, kernel_size=3, stride=1, padding=1, bias=False),
                                            bnorm(256), nn.ReLU(),
                                            nn.Dropout(0.5),
                                            conv2d(256, 256, kernel_size=3, stride=1, padding=1, bias=False),
                                            bnorm(256), nn.ReLU(),
-                                           nn.Dropout(0.1),
-                                           conv2d(256, num_classes - 1, kernel_size=1, stride=1))
+                                           nn.Dropout(0.1))
+            self.last_conv = nn.Sequential(conv2d(256, num_classes - 1, kernel_size=1, stride=1))
 
         def run_pamr(self, im, mask):
             im = F.interpolate(im, mask.size()[-2:], mode="bilinear", align_corners=True)
@@ -270,6 +276,11 @@ def network_factory(cfg):
 
             # 1. backbone pass
             x = self.forward_backbone(y)
+            # after backbone
+            # out_feature = x
+
+            # skip = x
+            # skip = skip.view(skip.size(0), -1)
 
             # 2. ASPP modules
             x = self.aspp(x)
@@ -280,6 +291,8 @@ def network_factory(cfg):
 
             # 3.1 skip connection for deep features
             x2_x = self.fc8_skip(self._backbone['conv3'])
+            # conv3
+            # out_feature = self._backbone['conv3']
             x_up = rescale_as(x, x2_x)
             x = self.fc8_x(torch.cat([x_up, x2_x], 1))
 
@@ -290,6 +303,11 @@ def network_factory(cfg):
             x = self.sg(x, x2, alpha_rate=self.cfg.SG_PSI)
 
             # 4. final convs to get the masks
+            # before decoder
+            # out_feature = x
+            x = self.decoder(x)
+            # default
+            out_feature = x
             x = self.last_conv(x)
 
             #
@@ -317,7 +335,24 @@ def network_factory(cfg):
                                c=self.cfg.FOCAL_LAMBDA)
 
             # adding the losses together
+            # (CHANGE: give smaller weight to focal loss, since complete assumption do not hold)
             cls = cls_1[:, 1:] + cls_2[:, 1:]
+
+            # CHANGE: use resnet50
+            # mylayer = self.r50.conv1(y)
+            # mylayer = self.r50.bn1(mylayer)
+            # mylayer = self.r50.relu(mylayer)
+            # mylayer = self.r50.maxpool(mylayer)
+            # mylayer = self.r50.layer1(mylayer)
+            # mylayer = self.r50.layer2(mylayer)
+            # mylayer = self.r50.layer3(mylayer)
+            # mylayer = self.r50.layer4(mylayer)
+            # mylayer = mylayer.view(mylayer.size(0), -1)
+            # res = self.fc(mylayer)
+            # res = self.fc(skip)
+
+            # CHANGE: fc
+            # cls = res
 
             if test_mode:
                 # if in test mode, not mask
@@ -334,6 +369,7 @@ def network_factory(cfg):
             masks_dec = self.run_pamr(y_raw, masks.detach())
 
             # upscale the masks & clean
+            masks_full = self._rescale(masks, y)
             masks = self._rescale_and_clean(masks, y, labels)
             masks_dec = self._rescale_and_clean(masks_dec, y, labels)
 
@@ -341,7 +377,7 @@ def network_factory(cfg):
             pseudo_gt = pseudo_gtmask(masks_dec).detach()
             loss_mask = balanced_mask_loss_ce(self._mask_logits, pseudo_gt, labels)
 
-            return cls, cls_fg, {"cam": masks, "dec": masks_dec}, self._mask_logits, pseudo_gt, loss_mask
+            return cls, cls_fg, {"cam": masks, "dec": masks_dec, "full": masks_full, "feature": out_feature}, self._mask_logits, pseudo_gt, loss_mask
 
         def _rescale_and_clean(self, masks, image, labels):
             """Rescale to fit the image size and remove any masks
@@ -350,6 +386,11 @@ def network_factory(cfg):
             masks[:, 1:] *= labels[:, :, None, None].type_as(masks)
             return masks
 
+        def _rescale(self, masks, image):
+            """Rescale to fit the image size and remove any masks
+            of labels that are not present"""
+            masks = F.interpolate(masks, size=image.size()[-2:], mode='bilinear', align_corners=True)
+            return masks
 
     if cfg.MODEL == 'ae':
         print("Model: AE")

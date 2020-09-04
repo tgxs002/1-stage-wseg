@@ -7,6 +7,7 @@ import torchvision.transforms as tf
 import torchvision.transforms.functional as F
 
 from functools import partial
+from torchvision.utils import save_image as sv
 
 class Compose:
     def __init__(self, segtransform):
@@ -44,6 +45,41 @@ class MaskRandResizedCrop:
 
         return image, labels
 
+class RandResizedCrop_corr:
+
+    def __init__(self, cfg):
+        self.rnd_crop = tf.RandomResizedCrop(cfg.CROP_SIZE, \
+                                             scale=(cfg.SCALE_FROM, \
+                                                    cfg.SCALE_TO))
+
+    def get_params(self, image):
+        return self.rnd_crop.get_params(image, \
+                                        self.rnd_crop.scale, \
+                                        self.rnd_crop.ratio)
+
+    def __call__(self, image, corr):
+
+        i, j, h, w = self.get_params(image)
+        width, height = image.size
+
+        image = F.resized_crop(image, i, j, h, w, self.rnd_crop.size, Image.CUBIC)
+
+        # transform the correspondence
+        if corr != None:
+            out = []
+            for idx in corr:
+                x, y = corr[idx]
+                x = (x * height - i) / h
+                y = (y * width - j) / w
+                if not (0 <= x <= 1 and 0 <= y <= 1):
+                    out.append(idx)
+                else:
+                    corr[idx] = (x, y)
+            for idx in out:
+                del corr[idx]
+
+        return image, corr
+
 class MaskHFlip:
 
     def __init__(self, p=0.5):
@@ -56,6 +92,22 @@ class MaskHFlip:
             mask = F.hflip(mask)
 
         return image, mask
+
+class HFlip_corr:
+
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def __call__(self, image, corr):
+
+        if random.random() < self.p:
+            image = F.hflip(image)
+            if corr != None:
+                for idx in corr:
+                    x, y = corr[idx]
+                    corr[idx] = (x, 1 - y)
+
+        return image, corr
 
 class MaskNormalise:
 
@@ -72,6 +124,21 @@ class MaskNormalise:
         labels = self.__toByteTensor(labels)
 
         return image, labels
+
+class Normalise_corr:
+
+    def __init__(self, mean, std):
+        self.norm = tf.Normalize(mean, std)
+
+    def __toByteTensor(self, pic):
+        return torch.from_numpy(np.array(pic, np.int32, copy=False))
+
+    def __call__(self, image, corr):
+
+        image = F.to_tensor(image)
+        image = self.norm(image)
+
+        return image, corr
 
 class MaskToTensor:
 
@@ -97,3 +164,19 @@ class MaskColourJitter:
             image = self.jitter(image)
 
         return image, mask
+
+class ColourJitter_corr:
+
+    def __init__(self, p=0.5, brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1):
+        self.p = p
+        self.jitter = tf.ColorJitter(brightness=0.3, \
+                                     contrast=0.3, \
+                                     saturation=0.3, \
+                                     hue=0.1)
+
+    def __call__(self, image, corr):
+
+        if random.random() < self.p:
+            image = self.jitter(image)
+
+        return image, corr

@@ -16,11 +16,22 @@ class MLHingeLoss(nn.Module):
 
         return F.multilabel_margin_loss(x, y_idx, reduction=reduction)
 
+class CrossEntropy(nn.Module):
+
+    def forward(self, x, y):
+        return F.cross_entropy(x, torch.argmax(y, -1))
+
+class Separate(nn.Module):
+
+    def forward(self, x, y):
+        return F.cross_entropy(x, torch.argmax(y, -1))
+
 def get_criterion(loss_name, **kwargs):
 
     losses = {
             "SoftMargin": nn.MultiLabelSoftMarginLoss,
-            "Hinge": MLHingeLoss
+            "Hinge": MLHingeLoss,
+            "CrossEntropy": CrossEntropy
             }
 
     return losses[loss_name](**kwargs)
