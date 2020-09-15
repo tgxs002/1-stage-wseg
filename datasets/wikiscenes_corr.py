@@ -27,6 +27,15 @@ class WikiScenes_corr(Dataset):
         'nave', 'tower', 'transept', 'apse', 'portal'
     ]
 
+    dataset_classes = [
+        'facade', 'nave', 'altar', 'tower', 'glass', 'transept', 'portal', 'monument', 'cloister', 'dome', 'apse', 'chancel'
+    ]
+    # 5023  1873    928     1099    4654    1624    1721    1419    376     283     581     804
+    # 0.83  0.57    0.09    0.18    0.95    0.21    0.28    0.16    0.03    0.04    0.12    0.34
+    # 18499
+
+    # 0.83  0.95`   0.57    0.28    0.21    0.16    0.18    0.09    0.34    0.12    0.03    0.02
+
     # dataset_classes = [
     #     'interior', 'exterior'
     # ]
@@ -95,9 +104,9 @@ class WikiSegmentation_corr(WikiScenes_corr):
 
         # train/val/test splits are pre-cut
         if self.split == 'train':
-            _split_f = os.path.join(self.root, 'split/train_5classes_2766_leaf.txt')
+            _split_f = os.path.join(self.root, 'split/train_12classes_30453_multi.txt')
         elif self.split == 'val':
-            _split_f = os.path.join(self.root, 'split/val_5classes_1000_leaf.txt')
+            _split_f = os.path.join(self.root, 'split/val_12classes_30453_multi.txt')
         elif self.split == 'train_voc':
             _split_f = os.path.join(self.root, 'train_voc.txt')
         elif self.split == 'test':
@@ -138,7 +147,7 @@ class WikiSegmentation_corr(WikiScenes_corr):
                 _image = os.path.join(self.root, _image)
                 assert os.path.isfile(_image), '%s not found' % _image
                 self.images.append(_image)
-                self.labels.append(label)
+                self.labels.append([x.strip("',") for x in label.strip("[]").split()])
                 self.captions.append(caption)
                 self.tags_list.append(tags)
                 count += 1
@@ -176,14 +185,14 @@ class WikiSegmentation_corr(WikiScenes_corr):
         for i in [index, pair_index]:
             image = Image.open(self.images[i]).convert('RGB')
             label  = self.labels[i]
-            label_index = self.CLASS_IDX[label]
             keypoints = self.keypoints[i].copy() if self.keypoints[i] != None else None
 
             # ignoring BG
             label_tensor = torch.zeros(self.NUM_CLASS - 1)
-            label_index -= 1 # shifting since no BG class
-
-            label_tensor[label_index] = 1
+            for l in label:
+                label_index = self.CLASS_IDX[l]
+                label_index -= 1 # shifting since no BG class
+                label_tensor[label_index] = 1
 
             # general resize, normalize and toTensor
             image, keypoints = self.transform(image, keypoints)

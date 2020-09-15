@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+
 import os, json
 import sys
 import math
@@ -281,6 +282,9 @@ class DecTrainer(BaseTrainer):
         #                      self.fixed_batch["labels"], \
         #                      train=False, visualise=True)
 
+        if self.dataset == 'wikiscenes_corr':
+            
+
     def _mask_rgb(self, masks, image_norm):
         # visualising masks
         masks_conf, masks_idx = torch.max(masks, 1)
@@ -381,14 +385,15 @@ class DecTrainer(BaseTrainer):
         preds_stacked = np.vstack(preds_all)
         aps = average_precision_score(targets_stacked, preds_stacked, average=None)
 
-        y_true = targets_stacked.argmax(1)
-        y_pred = preds_stacked.argmax(1)
-        acc = accuracy_score(y_true, y_pred)
+        # y_true = targets_stacked.argmax(1)
+        # y_pred = preds_stacked.argmax(1)
+        # acc = accuracy_score(y_true, y_pred)
 
         # per class accuracy
-        cm = confusion_matrix(y_true, y_pred)
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        cm = cm.diagonal()
+        # give up accuracy since computationally intensive
+        # cm = confusion_matrix(y_true, y_pred)
+        # cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        # cm = cm.diagonal()
 
         # skip BG AP
         offset = self.nclass - aps.size
@@ -397,12 +402,12 @@ class DecTrainer(BaseTrainer):
         classNames = self.classNames[offset:-1]
         for ni, className in enumerate(classNames):
             writer.add_scalar('%02d_%s/AP' % (ni + offset, className), aps[ni], epoch)
-            writer.add_scalar('%02d_%s/acc' % (ni + offset, className), cm[ni], epoch)
+            # writer.add_scalar('%02d_%s/acc' % (ni + offset, className), cm[ni], epoch)
             print("AP_{}: {:4.3f}".format(className, aps[ni]))
 
         meanAP = np.mean(aps)
         writer.add_scalar('all_wo_BG/mAP', meanAP, epoch)
-        writer.add_scalar('all_wo_BG/acc', acc, epoch)
+        # writer.add_scalar('all_wo_BG/acc', acc, epoch)
         print('mAP: {:4.3f}'.format(meanAP))
 
     def _visualise(self, epoch, image, masks, mask_logits, cls_out, gt_labels, for_save=False, info=None):

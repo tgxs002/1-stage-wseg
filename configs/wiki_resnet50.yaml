@@ -14,7 +14,7 @@ NET:
   PRE_WEIGHTS_PATH: "./models/weights/resnet50-19c8e357.pth"
   LR: 0.0005
   OPT: "Adam"
-  LOSS: "SoftMargin"
+  LOSS: "Separate"
   WEIGHT_DECAY: 0.0005
 TEST:
   METHOD: "multiscale" # multiscale | crop

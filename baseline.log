@@ -1,0 +1,3430 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/mnt/blakey/1-stage-wseg/base_trainer.py", line 13, in <module>
+    from tensorboardX import SummaryWriter
+ModuleNotFoundError: No module named 'tensorboardX'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "train.py", line 16, in <module>
+    from base_trainer import BaseTrainer
+  File "/mnt/blakey/1-stage-wseg/base_trainer.py", line 15, in <module>
+    from torch.utils.tensorboard import SummaryWriter
+ModuleNotFoundError: No module named 'torch.utils.tensorboard'
+nohup: ignoring input
+Config: 
+ {'NUM_GPUS': 1, 'TRAIN': {'BATCH_SIZE': 16, 'NUM_EPOCHS': 40, 'NUM_WORKERS': 1, 'MASK_LOSS': 0.0, 'PRETRAIN': 5}, 'TEST': {'METHOD': 'multiscale', 'DATA_ROOT': '/fastdata/naraslanov', 'SCALES': [1, 0.75, 1.25, 1.5], 'FLIP': True, 'PAD_SIZE': [768, 768], 'CROP_SIZE': [448, 448], 'CROP_GRID_SIZE': [2, 2], 'BATCH_SIZE': 8, 'BG_POW': 3, 'NUM_CLASSES': 21, 'USE_GT_LABELS': True, 'FP_CUT_SCORE': 0.3}, 'DATASET': {'CROP_SIZE': 224, 'SCALE_FROM': 0.9, 'SCALE_TO': 1.0, 'PATH': 'data/images'}, 'NET': {'MODEL': 'ae', 'BACKBONE': 'resnet50', 'PRE_WEIGHTS_PATH': './models/weights/resnet50-19c8e357.pth', 'OPT': 'Adam', 'LR': 0.0005, 'BETA1': 0.5, 'MOMENTUM': 0.9, 'WEIGHT_DECAY': 0.0005, 'LOSS': 'SoftMargin', 'MASK_LOSS_BCE': 1.0, 'BG_SCORE': 0.1, 'FOCAL_P': 3, 'FOCAL_LAMBDA': 0.01, 'PAMR_KERNEL': [1, 2, 4, 8, 12, 24], 'PAMR_ITER': 10, 'SG_PSI': 0.3}, 'MASKS': {'CRF': {'ALPHA_LOW': 4, 'ALPHA_HIGH': 32}}, 'CUDA': False, 'DEBUG': False, 'PYTORCH_VERSION_LESS_THAN_040': False}
+10436/18499 images have keypoints, 1231880 keypoints in total.
+0/3000 images have keypoints, 0 keypoints in total.
+Backbone: ResNet50
+Model: AE
+Loading weights from:  ./models/weights/resnet50-19c8e357.pth
+Group 0: #106, LR=5.000e-04
+Group 1: #53, LR=5.000e-04
+Group 2: #26, LR=5.000e-03
+Group 3: #13, LR=5.000e-03
+Epoch >>>  0
+AP_facade: 0.370
+AP_nave: 0.116
+AP_altar: 0.073
+AP_tower: 0.067
+AP_glass: 0.195
+AP_transept: 0.053
+AP_portal: 0.137
+AP_monument: 0.032
+AP_cloister: 0.016
+AP_dome: 0.037
+AP_apse: 0.049
+AP_chancel: 0.030
+mAP: 0.098
+Validation / Val:  2.3e+01m
+New Epoch:  Sun Sep 13 21:19:54 2020
+loss: 0.209
+loss_cls: 0.209
+loss_fg: 0.235
+loss_bce: 0.000
+loss_3d: 1.049
+mean_loss_3d: 1.699
+feature_norm: 12223.120
+kp number: 3747.772
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.710
+AP_nave: 0.289
+AP_altar: 0.098
+AP_tower: 0.083
+AP_glass: 0.911
+AP_transept: 0.119
+AP_portal: 0.178
+AP_monument: 0.107
+AP_cloister: 0.024
+AP_dome: 0.022
+AP_apse: 0.048
+AP_chancel: 0.149
+mAP: 0.228
+Train epoch:  1.1e+01m
+Epoch >>>  1
+New Epoch:  Sun Sep 13 21:30:58 2020
+loss: 0.197
+loss_cls: 0.197
+loss_fg: 0.245
+loss_bce: 0.000
+loss_3d: 0.145
+mean_loss_3d: 0.345
+feature_norm: 6950.686
+kp number: 3669.577
+loss_mask: 0.040
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.758
+AP_nave: 0.341
+AP_altar: 0.101
+AP_tower: 0.091
+AP_glass: 0.939
+AP_transept: 0.123
+AP_portal: 0.183
+AP_monument: 0.127
+AP_cloister: 0.027
+AP_dome: 0.023
+AP_apse: 0.056
+AP_chancel: 0.184
+mAP: 0.246
+Train epoch:  1.1e+01m
+Epoch >>>  2
+AP_facade: 0.582
+AP_nave: 0.260
+AP_altar: 0.133
+AP_tower: 0.089
+AP_glass: 0.776
+AP_transept: 0.062
+AP_portal: 0.114
+AP_monument: 0.036
+AP_cloister: 0.016
+AP_dome: 0.046
+AP_apse: 0.041
+AP_chancel: 0.058
+mAP: 0.184
+Validation / Val:  2.3e+01m
+New Epoch:  Sun Sep 13 22:04:39 2020
+loss: 0.192
+loss_cls: 0.192
+loss_fg: 0.259
+loss_bce: 0.000
+loss_3d: 0.158
+mean_loss_3d: 0.392
+feature_norm: 7251.552
+kp number: 3610.552
+loss_mask: 0.042
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.783
+AP_nave: 0.397
+AP_altar: 0.105
+AP_tower: 0.094
+AP_glass: 0.953
+AP_transept: 0.128
+AP_portal: 0.193
+AP_monument: 0.132
+AP_cloister: 0.027
+AP_dome: 0.026
+AP_apse: 0.057
+AP_chancel: 0.220
+mAP: 0.260
+Train epoch:  1.2e+01m
+Epoch >>>  3
+New Epoch:  Sun Sep 13 22:16:39 2020
+loss: 0.189
+loss_cls: 0.189
+loss_fg: 0.260
+loss_bce: 0.000
+loss_3d: 0.162
+mean_loss_3d: 0.396
+feature_norm: 7406.823
+kp number: 3678.916
+loss_mask: 0.044
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.791
+AP_nave: 0.425
+AP_altar: 0.101
+AP_tower: 0.095
+AP_glass: 0.953
+AP_transept: 0.136
+AP_portal: 0.203
+AP_monument: 0.146
+AP_cloister: 0.030
+AP_dome: 0.025
+AP_apse: 0.059
+AP_chancel: 0.244
+mAP: 0.267
+Train epoch:  1.2e+01m
+Epoch >>>  4
+AP_facade: 0.622
+AP_nave: 0.101
+AP_altar: 0.222
+AP_tower: 0.121
+AP_glass: 0.719
+AP_transept: 0.058
+AP_portal: 0.161
+AP_monument: 0.029
+AP_cloister: 0.011
+AP_dome: 0.038
+AP_apse: 0.034
+AP_chancel: 0.022
+mAP: 0.178
+Validation / Val:  2.3e+01m
+New Epoch:  Sun Sep 13 22:51:41 2020
+loss: 0.187
+loss_cls: 0.187
+loss_fg: 0.265
+loss_bce: 0.000
+loss_3d: 0.172
+mean_loss_3d: 0.416
+feature_norm: 7619.360
+kp number: 3674.214
+loss_mask: 0.046
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.806
+AP_nave: 0.423
+AP_altar: 0.114
+AP_tower: 0.097
+AP_glass: 0.959
+AP_transept: 0.138
+AP_portal: 0.215
+AP_monument: 0.155
+AP_cloister: 0.026
+AP_dome: 0.027
+AP_apse: 0.059
+AP_chancel: 0.242
+mAP: 0.272
+Train epoch:  1.2e+01m
+Epoch >>>  5
+New Epoch:  Sun Sep 13 23:03:48 2020
+loss: 0.209
+loss_cls: 0.187
+loss_fg: 0.238
+loss_bce: 0.000
+loss_3d: 0.198
+mean_loss_3d: 0.495
+feature_norm: 8370.544
+kp number: 3674.881
+loss_mask: 0.022
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.807
+AP_nave: 0.443
+AP_altar: 0.100
+AP_tower: 0.097
+AP_glass: 0.955
+AP_transept: 0.131
+AP_portal: 0.212
+AP_monument: 0.148
+AP_cloister: 0.026
+AP_dome: 0.027
+AP_apse: 0.061
+AP_chancel: 0.252
+mAP: 0.272
+Train epoch:  1.2e+01m
+Epoch >>>  6
+AP_facade: 0.639
+AP_nave: 0.208
+AP_altar: 0.137
+AP_tower: 0.062
+AP_glass: 0.822
+AP_transept: 0.058
+AP_portal: 0.126
+AP_monument: 0.037
+AP_cloister: 0.017
+AP_dome: 0.034
+AP_apse: 0.043
+AP_chancel: 0.020
+mAP: 0.184
+>>> Saving checkpoint with score 5.31e-01, epoch 6
+Validation / Val:  2.3e+01m
+New Epoch:  Sun Sep 13 23:38:58 2020
+loss: 0.227
+loss_cls: 0.187
+loss_fg: 0.235
+loss_bce: 0.000
+loss_3d: 0.417
+mean_loss_3d: 0.911
+feature_norm: 11712.440
+kp number: 3603.426
+loss_mask: 0.040
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.807
+AP_nave: 0.460
+AP_altar: 0.100
+AP_tower: 0.095
+AP_glass: 0.954
+AP_transept: 0.143
+AP_portal: 0.228
+AP_monument: 0.139
+AP_cloister: 0.029
+AP_dome: 0.028
+AP_apse: 0.059
+AP_chancel: 0.267
+mAP: 0.276
+Train epoch:  1.2e+01m
+Epoch >>>  7
+New Epoch:  Sun Sep 13 23:51:13 2020
+loss: 0.228
+loss_cls: 0.185
+loss_fg: 0.238
+loss_bce: 0.000
+loss_3d: 0.515
+mean_loss_3d: 1.138
+feature_norm: 13491.885
+kp number: 3619.157
+loss_mask: 0.043
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.806
+AP_nave: 0.499
+AP_altar: 0.096
+AP_tower: 0.101
+AP_glass: 0.952
+AP_transept: 0.155
+AP_portal: 0.230
+AP_monument: 0.138
+AP_cloister: 0.027
+AP_dome: 0.027
+AP_apse: 0.055
+AP_chancel: 0.306
+mAP: 0.283
+Train epoch:  1.2e+01m
+Epoch >>>  8
+AP_facade: 0.594
+AP_nave: 0.262
+AP_altar: 0.223
+AP_tower: 0.059
+AP_glass: 0.822
+AP_transept: 0.063
+AP_portal: 0.180
+AP_monument: 0.064
+AP_cloister: 0.030
+AP_dome: 0.040
+AP_apse: 0.044
+AP_chancel: 0.048
+mAP: 0.202
+>>> Saving checkpoint with score 6.34e-01, epoch 8
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 00:26:36 2020
+loss: 0.229
+loss_cls: 0.185
+loss_fg: 0.241
+loss_bce: 0.000
+loss_3d: 0.569
+mean_loss_3d: 1.206
+feature_norm: 14444.278
+kp number: 3670.352
+loss_mask: 0.044
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.797
+AP_nave: 0.507
+AP_altar: 0.103
+AP_tower: 0.105
+AP_glass: 0.955
+AP_transept: 0.162
+AP_portal: 0.229
+AP_monument: 0.145
+AP_cloister: 0.028
+AP_dome: 0.027
+AP_apse: 0.061
+AP_chancel: 0.318
+mAP: 0.286
+Train epoch:  1.2e+01m
+Epoch >>>  9
+New Epoch:  Mon Sep 14 00:38:52 2020
+loss: 0.229
+loss_cls: 0.183
+loss_fg: 0.242
+loss_bce: 0.000
+loss_3d: 0.592
+mean_loss_3d: 1.284
+feature_norm: 15006.272
+kp number: 3690.589
+loss_mask: 0.046
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.791
+AP_nave: 0.512
+AP_altar: 0.099
+AP_tower: 0.122
+AP_glass: 0.951
+AP_transept: 0.167
+AP_portal: 0.252
+AP_monument: 0.146
+AP_cloister: 0.026
+AP_dome: 0.030
+AP_apse: 0.070
+AP_chancel: 0.309
+mAP: 0.289
+Train epoch:  1.2e+01m
+Epoch >>>  10
+AP_facade: 0.612
+AP_nave: 0.172
+AP_altar: 0.108
+AP_tower: 0.055
+AP_glass: 0.807
+AP_transept: 0.059
+AP_portal: 0.139
+AP_monument: 0.036
+AP_cloister: 0.022
+AP_dome: 0.036
+AP_apse: 0.037
+AP_chancel: 0.021
+mAP: 0.175
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 01:13:54 2020
+loss: 0.225
+loss_cls: 0.182
+loss_fg: 0.244
+loss_bce: 0.000
+loss_3d: 0.602
+mean_loss_3d: 1.306
+feature_norm: 15210.328
+kp number: 3637.811
+loss_mask: 0.043
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.803
+AP_nave: 0.510
+AP_altar: 0.106
+AP_tower: 0.154
+AP_glass: 0.952
+AP_transept: 0.179
+AP_portal: 0.252
+AP_monument: 0.145
+AP_cloister: 0.030
+AP_dome: 0.031
+AP_apse: 0.086
+AP_chancel: 0.314
+mAP: 0.297
+Train epoch:  1.2e+01m
+Epoch >>>  11
+New Epoch:  Mon Sep 14 01:25:55 2020
+loss: 0.221
+loss_cls: 0.180
+loss_fg: 0.246
+loss_bce: 0.000
+loss_3d: 0.588
+mean_loss_3d: 1.288
+feature_norm: 15307.052
+kp number: 3587.240
+loss_mask: 0.040
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.801
+AP_nave: 0.533
+AP_altar: 0.099
+AP_tower: 0.156
+AP_glass: 0.952
+AP_transept: 0.187
+AP_portal: 0.265
+AP_monument: 0.152
+AP_cloister: 0.030
+AP_dome: 0.037
+AP_apse: 0.086
+AP_chancel: 0.336
+mAP: 0.303
+Train epoch:  1.2e+01m
+Epoch >>>  12
+AP_facade: 0.599
+AP_nave: 0.336
+AP_altar: 0.172
+AP_tower: 0.086
+AP_glass: 0.869
+AP_transept: 0.067
+AP_portal: 0.152
+AP_monument: 0.041
+AP_cloister: 0.023
+AP_dome: 0.061
+AP_apse: 0.033
+AP_chancel: 0.118
+mAP: 0.213
+>>> Saving checkpoint with score 6.92e-01, epoch 12
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 02:01:01 2020
+loss: 0.220
+loss_cls: 0.179
+loss_fg: 0.247
+loss_bce: 0.000
+loss_3d: 0.587
+mean_loss_3d: 1.328
+feature_norm: 15391.961
+kp number: 3655.805
+loss_mask: 0.040
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.810
+AP_nave: 0.541
+AP_altar: 0.098
+AP_tower: 0.155
+AP_glass: 0.953
+AP_transept: 0.211
+AP_portal: 0.264
+AP_monument: 0.155
+AP_cloister: 0.030
+AP_dome: 0.032
+AP_apse: 0.089
+AP_chancel: 0.329
+mAP: 0.306
+Train epoch:  1.2e+01m
+Epoch >>>  13
+New Epoch:  Mon Sep 14 02:13:11 2020
+loss: 0.220
+loss_cls: 0.179
+loss_fg: 0.249
+loss_bce: 0.000
+loss_3d: 0.587
+mean_loss_3d: 1.283
+feature_norm: 15476.091
+kp number: 3562.210
+loss_mask: 0.041
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.809
+AP_nave: 0.555
+AP_altar: 0.096
+AP_tower: 0.157
+AP_glass: 0.948
+AP_transept: 0.204
+AP_portal: 0.278
+AP_monument: 0.153
+AP_cloister: 0.029
+AP_dome: 0.031
+AP_apse: 0.091
+AP_chancel: 0.340
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  14
+AP_facade: 0.605
+AP_nave: 0.330
+AP_altar: 0.214
+AP_tower: 0.064
+AP_glass: 0.856
+AP_transept: 0.052
+AP_portal: 0.150
+AP_monument: 0.038
+AP_cloister: 0.017
+AP_dome: 0.029
+AP_apse: 0.038
+AP_chancel: 0.135
+mAP: 0.211
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 02:48:08 2020
+loss: 0.220
+loss_cls: 0.178
+loss_fg: 0.242
+loss_bce: 0.000
+loss_3d: 0.613
+mean_loss_3d: 1.393
+feature_norm: 15839.326
+kp number: 3617.530
+loss_mask: 0.042
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.814
+AP_nave: 0.555
+AP_altar: 0.089
+AP_tower: 0.159
+AP_glass: 0.954
+AP_transept: 0.195
+AP_portal: 0.254
+AP_monument: 0.151
+AP_cloister: 0.031
+AP_dome: 0.037
+AP_apse: 0.100
+AP_chancel: 0.351
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  15
+New Epoch:  Mon Sep 14 03:00:05 2020
+loss: 0.221
+loss_cls: 0.180
+loss_fg: 0.239
+loss_bce: 0.000
+loss_3d: 0.628
+mean_loss_3d: 1.420
+feature_norm: 16088.897
+kp number: 3592.077
+loss_mask: 0.042
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.809
+AP_nave: 0.556
+AP_altar: 0.091
+AP_tower: 0.156
+AP_glass: 0.947
+AP_transept: 0.183
+AP_portal: 0.258
+AP_monument: 0.151
+AP_cloister: 0.030
+AP_dome: 0.039
+AP_apse: 0.088
+AP_chancel: 0.346
+mAP: 0.304
+Train epoch:  1.2e+01m
+Epoch >>>  16
+AP_facade: 0.509
+AP_nave: 0.136
+AP_altar: 0.114
+AP_tower: 0.065
+AP_glass: 0.806
+AP_transept: 0.057
+AP_portal: 0.171
+AP_monument: 0.054
+AP_cloister: 0.020
+AP_dome: 0.052
+AP_apse: 0.038
+AP_chancel: 0.018
+mAP: 0.170
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 03:35:08 2020
+loss: 0.221
+loss_cls: 0.180
+loss_fg: 0.235
+loss_bce: 0.000
+loss_3d: 0.645
+mean_loss_3d: 1.447
+feature_norm: 16381.324
+kp number: 3603.520
+loss_mask: 0.041
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.810
+AP_nave: 0.543
+AP_altar: 0.092
+AP_tower: 0.156
+AP_glass: 0.951
+AP_transept: 0.181
+AP_portal: 0.269
+AP_monument: 0.142
+AP_cloister: 0.031
+AP_dome: 0.032
+AP_apse: 0.109
+AP_chancel: 0.327
+mAP: 0.304
+Train epoch:  1.2e+01m
+Epoch >>>  17
+New Epoch:  Mon Sep 14 03:47:13 2020
+loss: 0.220
+loss_cls: 0.180
+loss_fg: 0.233
+loss_bce: 0.000
+loss_3d: 0.657
+mean_loss_3d: 1.444
+feature_norm: 16430.794
+kp number: 3582.890
+loss_mask: 0.040
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.807
+AP_nave: 0.552
+AP_altar: 0.097
+AP_tower: 0.164
+AP_glass: 0.951
+AP_transept: 0.180
+AP_portal: 0.270
+AP_monument: 0.148
+AP_cloister: 0.033
+AP_dome: 0.036
+AP_apse: 0.109
+AP_chancel: 0.328
+mAP: 0.306
+Train epoch:  1.2e+01m
+Epoch >>>  18
+AP_facade: 0.412
+AP_nave: 0.111
+AP_altar: 0.096
+AP_tower: 0.089
+AP_glass: 0.810
+AP_transept: 0.071
+AP_portal: 0.169
+AP_monument: 0.060
+AP_cloister: 0.028
+AP_dome: 0.061
+AP_apse: 0.049
+AP_chancel: 0.038
+mAP: 0.166
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 04:22:22 2020
+loss: 0.219
+loss_cls: 0.180
+loss_fg: 0.233
+loss_bce: 0.000
+loss_3d: 0.667
+mean_loss_3d: 1.471
+feature_norm: 16416.572
+kp number: 3577.196
+loss_mask: 0.039
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.802
+AP_nave: 0.538
+AP_altar: 0.096
+AP_tower: 0.168
+AP_glass: 0.951
+AP_transept: 0.184
+AP_portal: 0.278
+AP_monument: 0.147
+AP_cloister: 0.032
+AP_dome: 0.037
+AP_apse: 0.114
+AP_chancel: 0.318
+mAP: 0.305
+Train epoch:  1.2e+01m
+Epoch >>>  19
+New Epoch:  Mon Sep 14 04:34:24 2020
+loss: 0.219
+loss_cls: 0.180
+loss_fg: 0.235
+loss_bce: 0.000
+loss_3d: 0.670
+mean_loss_3d: 1.489
+feature_norm: 16584.512
+kp number: 3642.641
+loss_mask: 0.039
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.802
+AP_nave: 0.541
+AP_altar: 0.091
+AP_tower: 0.166
+AP_glass: 0.951
+AP_transept: 0.173
+AP_portal: 0.275
+AP_monument: 0.145
+AP_cloister: 0.030
+AP_dome: 0.037
+AP_apse: 0.112
+AP_chancel: 0.302
+mAP: 0.302
+Train epoch:  1.2e+01m
+Epoch >>>  20
+AP_facade: 0.619
+AP_nave: 0.131
+AP_altar: 0.212
+AP_tower: 0.073
+AP_glass: 0.863
+AP_transept: 0.089
+AP_portal: 0.200
+AP_monument: 0.095
+AP_cloister: 0.033
+AP_dome: 0.056
+AP_apse: 0.043
+AP_chancel: 0.032
+mAP: 0.204
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 05:09:25 2020
+loss: 0.217
+loss_cls: 0.179
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.676
+mean_loss_3d: 1.502
+feature_norm: 16544.476
+kp number: 3650.714
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.800
+AP_nave: 0.558
+AP_altar: 0.093
+AP_tower: 0.166
+AP_glass: 0.951
+AP_transept: 0.189
+AP_portal: 0.268
+AP_monument: 0.150
+AP_cloister: 0.029
+AP_dome: 0.034
+AP_apse: 0.118
+AP_chancel: 0.316
+mAP: 0.306
+Train epoch:  1.2e+01m
+Epoch >>>  21
+New Epoch:  Mon Sep 14 05:21:31 2020
+loss: 0.217
+loss_cls: 0.179
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.663
+mean_loss_3d: 1.451
+feature_norm: 16489.920
+kp number: 3563.411
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.808
+AP_nave: 0.547
+AP_altar: 0.095
+AP_tower: 0.172
+AP_glass: 0.950
+AP_transept: 0.186
+AP_portal: 0.274
+AP_monument: 0.150
+AP_cloister: 0.031
+AP_dome: 0.037
+AP_apse: 0.116
+AP_chancel: 0.318
+mAP: 0.307
+Train epoch:  1.2e+01m
+Epoch >>>  22
+AP_facade: 0.468
+AP_nave: 0.123
+AP_altar: 0.142
+AP_tower: 0.063
+AP_glass: 0.620
+AP_transept: 0.071
+AP_portal: 0.149
+AP_monument: 0.047
+AP_cloister: 0.023
+AP_dome: 0.051
+AP_apse: 0.046
+AP_chancel: 0.021
+mAP: 0.152
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 05:56:32 2020
+loss: 0.217
+loss_cls: 0.179
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.668
+mean_loss_3d: 1.490
+feature_norm: 16547.589
+kp number: 3638.484
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.813
+AP_nave: 0.534
+AP_altar: 0.092
+AP_tower: 0.171
+AP_glass: 0.951
+AP_transept: 0.184
+AP_portal: 0.276
+AP_monument: 0.147
+AP_cloister: 0.031
+AP_dome: 0.037
+AP_apse: 0.110
+AP_chancel: 0.316
+mAP: 0.305
+Train epoch:  1.2e+01m
+Epoch >>>  23
+New Epoch:  Mon Sep 14 06:08:35 2020
+loss: 0.218
+loss_cls: 0.180
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.670
+mean_loss_3d: 1.498
+feature_norm: 16570.982
+kp number: 3635.260
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.800
+AP_nave: 0.536
+AP_altar: 0.092
+AP_tower: 0.179
+AP_glass: 0.949
+AP_transept: 0.181
+AP_portal: 0.261
+AP_monument: 0.141
+AP_cloister: 0.031
+AP_dome: 0.035
+AP_apse: 0.118
+AP_chancel: 0.323
+mAP: 0.304
+Train epoch:  1.2e+01m
+Epoch >>>  24
+AP_facade: 0.502
+AP_nave: 0.243
+AP_altar: 0.170
+AP_tower: 0.088
+AP_glass: 0.863
+AP_transept: 0.078
+AP_portal: 0.181
+AP_monument: 0.050
+AP_cloister: 0.024
+AP_dome: 0.059
+AP_apse: 0.037
+AP_chancel: 0.059
+mAP: 0.196
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 06:43:35 2020
+loss: 0.216
+loss_cls: 0.177
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.669
+mean_loss_3d: 1.529
+feature_norm: 16609.889
+kp number: 3713.299
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.814
+AP_nave: 0.548
+AP_altar: 0.098
+AP_tower: 0.185
+AP_glass: 0.952
+AP_transept: 0.182
+AP_portal: 0.272
+AP_monument: 0.150
+AP_cloister: 0.030
+AP_dome: 0.038
+AP_apse: 0.118
+AP_chancel: 0.335
+mAP: 0.310
+Train epoch:  1.2e+01m
+Epoch >>>  25
+New Epoch:  Mon Sep 14 06:55:46 2020
+loss: 0.216
+loss_cls: 0.178
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.662
+mean_loss_3d: 1.463
+feature_norm: 16374.604
+kp number: 3643.230
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.810
+AP_nave: 0.556
+AP_altar: 0.090
+AP_tower: 0.171
+AP_glass: 0.949
+AP_transept: 0.188
+AP_portal: 0.272
+AP_monument: 0.150
+AP_cloister: 0.035
+AP_dome: 0.035
+AP_apse: 0.112
+AP_chancel: 0.328
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  26
+AP_facade: 0.531
+AP_nave: 0.171
+AP_altar: 0.156
+AP_tower: 0.065
+AP_glass: 0.812
+AP_transept: 0.088
+AP_portal: 0.166
+AP_monument: 0.064
+AP_cloister: 0.025
+AP_dome: 0.051
+AP_apse: 0.051
+AP_chancel: 0.033
+mAP: 0.184
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 07:30:52 2020
+loss: 0.217
+loss_cls: 0.179
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.666
+mean_loss_3d: 1.481
+feature_norm: 16498.331
+kp number: 3614.361
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.812
+AP_nave: 0.550
+AP_altar: 0.093
+AP_tower: 0.177
+AP_glass: 0.953
+AP_transept: 0.190
+AP_portal: 0.270
+AP_monument: 0.157
+AP_cloister: 0.033
+AP_dome: 0.038
+AP_apse: 0.107
+AP_chancel: 0.341
+mAP: 0.310
+Train epoch:  1.2e+01m
+Epoch >>>  27
+New Epoch:  Mon Sep 14 07:43:16 2020
+loss: 0.217
+loss_cls: 0.179
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.665
+mean_loss_3d: 1.514
+feature_norm: 16486.754
+kp number: 3669.618
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.812
+AP_nave: 0.553
+AP_altar: 0.094
+AP_tower: 0.165
+AP_glass: 0.949
+AP_transept: 0.191
+AP_portal: 0.276
+AP_monument: 0.157
+AP_cloister: 0.032
+AP_dome: 0.040
+AP_apse: 0.112
+AP_chancel: 0.321
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  28
+AP_facade: 0.428
+AP_nave: 0.235
+AP_altar: 0.137
+AP_tower: 0.060
+AP_glass: 0.816
+AP_transept: 0.060
+AP_portal: 0.136
+AP_monument: 0.036
+AP_cloister: 0.018
+AP_dome: 0.030
+AP_apse: 0.038
+AP_chancel: 0.039
+mAP: 0.169
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 08:18:10 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.233
+loss_bce: 0.000
+loss_3d: 0.673
+mean_loss_3d: 1.481
+feature_norm: 16523.751
+kp number: 3595.137
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.818
+AP_nave: 0.551
+AP_altar: 0.089
+AP_tower: 0.184
+AP_glass: 0.955
+AP_transept: 0.182
+AP_portal: 0.267
+AP_monument: 0.154
+AP_cloister: 0.033
+AP_dome: 0.037
+AP_apse: 0.121
+AP_chancel: 0.350
+mAP: 0.312
+Train epoch:  1.2e+01m
+Epoch >>>  29
+New Epoch:  Mon Sep 14 08:30:18 2020
+loss: 0.216
+loss_cls: 0.178
+loss_fg: 0.233
+loss_bce: 0.000
+loss_3d: 0.669
+mean_loss_3d: 1.491
+feature_norm: 16544.440
+kp number: 3654.805
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.814
+AP_nave: 0.540
+AP_altar: 0.091
+AP_tower: 0.173
+AP_glass: 0.955
+AP_transept: 0.191
+AP_portal: 0.277
+AP_monument: 0.150
+AP_cloister: 0.032
+AP_dome: 0.037
+AP_apse: 0.112
+AP_chancel: 0.324
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  30
+AP_facade: 0.492
+AP_nave: 0.144
+AP_altar: 0.150
+AP_tower: 0.084
+AP_glass: 0.833
+AP_transept: 0.081
+AP_portal: 0.201
+AP_monument: 0.054
+AP_cloister: 0.022
+AP_dome: 0.068
+AP_apse: 0.039
+AP_chancel: 0.029
+mAP: 0.183
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 09:05:27 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.656
+mean_loss_3d: 1.484
+feature_norm: 16393.241
+kp number: 3636.587
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.825
+AP_nave: 0.561
+AP_altar: 0.090
+AP_tower: 0.168
+AP_glass: 0.952
+AP_transept: 0.185
+AP_portal: 0.265
+AP_monument: 0.152
+AP_cloister: 0.035
+AP_dome: 0.036
+AP_apse: 0.119
+AP_chancel: 0.317
+mAP: 0.309
+Train epoch:  1.2e+01m
+Epoch >>>  31
+New Epoch:  Mon Sep 14 09:17:37 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.668
+mean_loss_3d: 1.490
+feature_norm: 16527.613
+kp number: 3661.403
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.814
+AP_nave: 0.543
+AP_altar: 0.092
+AP_tower: 0.172
+AP_glass: 0.950
+AP_transept: 0.190
+AP_portal: 0.269
+AP_monument: 0.150
+AP_cloister: 0.035
+AP_dome: 0.032
+AP_apse: 0.125
+AP_chancel: 0.319
+mAP: 0.308
+Train epoch:  1.2e+01m
+Epoch >>>  32
+AP_facade: 0.581
+AP_nave: 0.135
+AP_altar: 0.190
+AP_tower: 0.065
+AP_glass: 0.692
+AP_transept: 0.069
+AP_portal: 0.155
+AP_monument: 0.068
+AP_cloister: 0.028
+AP_dome: 0.058
+AP_apse: 0.058
+AP_chancel: 0.025
+mAP: 0.177
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 09:52:29 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.657
+mean_loss_3d: 1.497
+feature_norm: 16452.432
+kp number: 3680.789
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.818
+AP_nave: 0.575
+AP_altar: 0.096
+AP_tower: 0.172
+AP_glass: 0.954
+AP_transept: 0.189
+AP_portal: 0.267
+AP_monument: 0.163
+AP_cloister: 0.032
+AP_dome: 0.037
+AP_apse: 0.120
+AP_chancel: 0.346
+mAP: 0.314
+Train epoch:  1.2e+01m
+Epoch >>>  33
+New Epoch:  Mon Sep 14 10:04:31 2020
+loss: 0.215
+loss_cls: 0.178
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.671
+mean_loss_3d: 1.501
+feature_norm: 16551.967
+kp number: 3594.606
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.821
+AP_nave: 0.560
+AP_altar: 0.094
+AP_tower: 0.178
+AP_glass: 0.950
+AP_transept: 0.183
+AP_portal: 0.261
+AP_monument: 0.152
+AP_cloister: 0.031
+AP_dome: 0.042
+AP_apse: 0.126
+AP_chancel: 0.330
+mAP: 0.311
+Train epoch:  1.2e+01m
+Epoch >>>  34
+AP_facade: 0.545
+AP_nave: 0.090
+AP_altar: 0.081
+AP_tower: 0.097
+AP_glass: 0.829
+AP_transept: 0.051
+AP_portal: 0.168
+AP_monument: 0.036
+AP_cloister: 0.015
+AP_dome: 0.035
+AP_apse: 0.040
+AP_chancel: 0.018
+mAP: 0.167
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 10:39:28 2020
+loss: 0.215
+loss_cls: 0.178
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.665
+mean_loss_3d: 1.482
+feature_norm: 16555.904
+kp number: 3686.911
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.815
+AP_nave: 0.551
+AP_altar: 0.093
+AP_tower: 0.174
+AP_glass: 0.953
+AP_transept: 0.187
+AP_portal: 0.261
+AP_monument: 0.157
+AP_cloister: 0.031
+AP_dome: 0.038
+AP_apse: 0.126
+AP_chancel: 0.328
+mAP: 0.309
+Train epoch:  1.2e+01m
+Epoch >>>  35
+New Epoch:  Mon Sep 14 10:51:35 2020
+loss: 0.214
+loss_cls: 0.177
+loss_fg: 0.231
+loss_bce: 0.000
+loss_3d: 0.664
+mean_loss_3d: 1.490
+feature_norm: 16599.360
+kp number: 3546.644
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.824
+AP_nave: 0.575
+AP_altar: 0.094
+AP_tower: 0.169
+AP_glass: 0.953
+AP_transept: 0.201
+AP_portal: 0.270
+AP_monument: 0.144
+AP_cloister: 0.032
+AP_dome: 0.035
+AP_apse: 0.125
+AP_chancel: 0.321
+mAP: 0.312
+Train epoch:  1.2e+01m
+Epoch >>>  36
+AP_facade: 0.519
+AP_nave: 0.199
+AP_altar: 0.228
+AP_tower: 0.064
+AP_glass: 0.767
+AP_transept: 0.069
+AP_portal: 0.167
+AP_monument: 0.041
+AP_cloister: 0.033
+AP_dome: 0.056
+AP_apse: 0.042
+AP_chancel: 0.039
+mAP: 0.185
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 11:26:28 2020
+loss: 0.215
+loss_cls: 0.178
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.663
+mean_loss_3d: 1.520
+feature_norm: 16590.066
+kp number: 3635.040
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.812
+AP_nave: 0.575
+AP_altar: 0.093
+AP_tower: 0.170
+AP_glass: 0.952
+AP_transept: 0.202
+AP_portal: 0.276
+AP_monument: 0.153
+AP_cloister: 0.029
+AP_dome: 0.037
+AP_apse: 0.127
+AP_chancel: 0.347
+mAP: 0.314
+Train epoch:  1.2e+01m
+Epoch >>>  37
+New Epoch:  Mon Sep 14 11:38:31 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.229
+loss_bce: 0.000
+loss_3d: 0.668
+mean_loss_3d: 1.460
+feature_norm: 16478.820
+kp number: 3648.890
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.820
+AP_nave: 0.564
+AP_altar: 0.094
+AP_tower: 0.166
+AP_glass: 0.951
+AP_transept: 0.189
+AP_portal: 0.267
+AP_monument: 0.151
+AP_cloister: 0.032
+AP_dome: 0.039
+AP_apse: 0.119
+AP_chancel: 0.323
+mAP: 0.310
+Train epoch:  1.2e+01m
+Epoch >>>  38
+AP_facade: 0.574
+AP_nave: 0.121
+AP_altar: 0.152
+AP_tower: 0.072
+AP_glass: 0.759
+AP_transept: 0.065
+AP_portal: 0.186
+AP_monument: 0.061
+AP_cloister: 0.024
+AP_dome: 0.052
+AP_apse: 0.065
+AP_chancel: 0.027
+mAP: 0.180
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 12:13:38 2020
+loss: 0.213
+loss_cls: 0.176
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.676
+mean_loss_3d: 1.522
+feature_norm: 16595.222
+kp number: 3637.875
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.832
+AP_nave: 0.566
+AP_altar: 0.094
+AP_tower: 0.171
+AP_glass: 0.952
+AP_transept: 0.191
+AP_portal: 0.281
+AP_monument: 0.149
+AP_cloister: 0.031
+AP_dome: 0.041
+AP_apse: 0.123
+AP_chancel: 0.344
+mAP: 0.315
+Train epoch:  1.2e+01m
+Epoch >>>  39
+New Epoch:  Mon Sep 14 12:25:45 2020
+loss: 0.214
+loss_cls: 0.177
+loss_fg: 0.232
+loss_bce: 0.000
+loss_3d: 0.658
+mean_loss_3d: 1.469
+feature_norm: 16502.777
+kp number: 3606.465
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.814
+AP_nave: 0.577
+AP_altar: 0.094
+AP_tower: 0.174
+AP_glass: 0.950
+AP_transept: 0.193
+AP_portal: 0.265
+AP_monument: 0.161
+AP_cloister: 0.031
+AP_dome: 0.037
+AP_apse: 0.123
+AP_chancel: 0.334
+mAP: 0.313
+Train epoch:  1.2e+01m
+Epoch >>>  40
+AP_facade: 0.609
+AP_nave: 0.140
+AP_altar: 0.222
+AP_tower: 0.062
+AP_glass: 0.804
+AP_transept: 0.083
+AP_portal: 0.152
+AP_monument: 0.064
+AP_cloister: 0.036
+AP_dome: 0.055
+AP_apse: 0.047
+AP_chancel: 0.031
+mAP: 0.192
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 13:00:41 2020
+loss: 0.215
+loss_cls: 0.177
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.670
+mean_loss_3d: 1.479
+feature_norm: 16523.167
+kp number: 3555.262
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.813
+AP_nave: 0.568
+AP_altar: 0.097
+AP_tower: 0.181
+AP_glass: 0.953
+AP_transept: 0.192
+AP_portal: 0.270
+AP_monument: 0.155
+AP_cloister: 0.031
+AP_dome: 0.040
+AP_apse: 0.123
+AP_chancel: 0.329
+mAP: 0.313
+Train epoch:  1.2e+01m
+nohup: ignoring input
+nohup: ignoring input
+Config: 
+ {'NUM_GPUS': 1, 'TRAIN': {'BATCH_SIZE': 16, 'NUM_EPOCHS': 40, 'NUM_WORKERS': 1, 'MASK_LOSS': 0.0, 'PRETRAIN': 5}, 'TEST': {'METHOD': 'multiscale', 'DATA_ROOT': '/fastdata/naraslanov', 'SCALES': [1, 0.75, 1.25, 1.5], 'FLIP': True, 'PAD_SIZE': [768, 768], 'CROP_SIZE': [448, 448], 'CROP_GRID_SIZE': [2, 2], 'BATCH_SIZE': 8, 'BG_POW': 3, 'NUM_CLASSES': 21, 'USE_GT_LABELS': True, 'FP_CUT_SCORE': 0.3}, 'DATASET': {'CROP_SIZE': 224, 'SCALE_FROM': 0.9, 'SCALE_TO': 1.0, 'PATH': 'data/images'}, 'NET': {'MODEL': 'ae', 'BACKBONE': 'resnet50', 'PRE_WEIGHTS_PATH': './models/weights/resnet50-19c8e357.pth', 'OPT': 'Adam', 'LR': 0.0005, 'BETA1': 0.5, 'MOMENTUM': 0.9, 'WEIGHT_DECAY': 0.0005, 'LOSS': 'Separate', 'MASK_LOSS_BCE': 1.0, 'BG_SCORE': 0.1, 'FOCAL_P': 3, 'FOCAL_LAMBDA': 0.01, 'PAMR_KERNEL': [1, 2, 4, 8, 12, 24], 'PAMR_ITER': 10, 'SG_PSI': 0.3}, 'MASKS': {'CRF': {'ALPHA_LOW': 4, 'ALPHA_HIGH': 32}}, 'CUDA': False, 'DEBUG': False, 'PYTORCH_VERSION_LESS_THAN_040': False}
+10436/18499 images have keypoints, 1231880 keypoints in total.
+0/3000 images have keypoints, 0 keypoints in total.
+Backbone: ResNet50
+Model: AE
+Loading weights from:  ./models/weights/resnet50-19c8e357.pth
+Group 0: #106, LR=5.000e-04
+Group 1: #53, LR=5.000e-04
+Group 2: #26, LR=5.000e-03
+Group 3: #13, LR=5.000e-03
+Loading fixed batch from ./logs/wikiscenes_corr/main/fixed_batch.pt
+Epoch >>>  0
+AP_facade: 0.322
+AP_nave: 0.180
+AP_altar: 0.069
+AP_tower: 0.113
+AP_glass: 0.147
+AP_transept: 0.056
+AP_portal: 0.165
+AP_monument: 0.054
+AP_cloister: 0.018
+AP_dome: 0.032
+AP_apse: 0.049
+AP_chancel: 0.061
+mAP: 0.105
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 22:15:21 2020
+loss: 0.201
+loss_cls: 0.201
+loss_fg: 0.241
+loss_bce: 0.000
+loss_3d: 1.264
+mean_loss_3d: 1.619
+feature_norm: 11546.591
+kp number: 3747.772
+loss_mask: 0.053
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.728
+AP_nave: 0.506
+AP_altar: 0.099
+AP_tower: 0.091
+AP_glass: 0.919
+AP_transept: 0.117
+AP_portal: 0.200
+AP_monument: 0.126
+AP_cloister: 0.024
+AP_dome: 0.025
+AP_apse: 0.054
+AP_chancel: 0.279
+mAP: 0.264
+Train epoch:  1.1e+01m
+Epoch >>>  1
+New Epoch:  Mon Sep 14 22:26:23 2020
+loss: 0.185
+loss_cls: 0.185
+loss_fg: 0.262
+loss_bce: 0.000
+loss_3d: 0.178
+mean_loss_3d: 0.369
+feature_norm: 7145.172
+kp number: 3669.577
+loss_mask: 0.052
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.789
+AP_nave: 0.654
+AP_altar: 0.109
+AP_tower: 0.088
+AP_glass: 0.946
+AP_transept: 0.125
+AP_portal: 0.226
+AP_monument: 0.160
+AP_cloister: 0.027
+AP_dome: 0.025
+AP_apse: 0.060
+AP_chancel: 0.377
+mAP: 0.299
+Train epoch:  1.1e+01m
+Epoch >>>  2
+AP_facade: 0.612
+AP_nave: 0.394
+AP_altar: 0.234
+AP_tower: 0.141
+AP_glass: 0.874
+AP_transept: 0.064
+AP_portal: 0.310
+AP_monument: 0.057
+AP_cloister: 0.024
+AP_dome: 0.034
+AP_apse: 0.053
+AP_chancel: 0.121
+mAP: 0.243
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 23:00:40 2020
+loss: 0.178
+loss_cls: 0.178
+loss_fg: 0.272
+loss_bce: 0.000
+loss_3d: 0.207
+mean_loss_3d: 0.429
+feature_norm: 7662.658
+kp number: 3610.552
+loss_mask: 0.055
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.815
+AP_nave: 0.697
+AP_altar: 0.120
+AP_tower: 0.102
+AP_glass: 0.956
+AP_transept: 0.171
+AP_portal: 0.275
+AP_monument: 0.182
+AP_cloister: 0.028
+AP_dome: 0.026
+AP_apse: 0.077
+AP_chancel: 0.423
+mAP: 0.323
+Train epoch:  1.2e+01m
+Epoch >>>  3
+New Epoch:  Mon Sep 14 23:12:39 2020
+loss: 0.172
+loss_cls: 0.172
+loss_fg: 0.276
+loss_bce: 0.000
+loss_3d: 0.227
+mean_loss_3d: 0.452
+feature_norm: 7952.911
+kp number: 3678.916
+loss_mask: 0.057
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.825
+AP_nave: 0.725
+AP_altar: 0.144
+AP_tower: 0.124
+AP_glass: 0.958
+AP_transept: 0.201
+AP_portal: 0.328
+AP_monument: 0.206
+AP_cloister: 0.033
+AP_dome: 0.027
+AP_apse: 0.100
+AP_chancel: 0.429
+mAP: 0.342
+Train epoch:  1.3e+01m
+Epoch >>>  4
+AP_facade: 0.581
+AP_nave: 0.359
+AP_altar: 0.224
+AP_tower: 0.150
+AP_glass: 0.785
+AP_transept: 0.059
+AP_portal: 0.365
+AP_monument: 0.059
+AP_cloister: 0.035
+AP_dome: 0.034
+AP_apse: 0.035
+AP_chancel: 0.057
+mAP: 0.229
+Validation / Val:  2.3e+01m
+New Epoch:  Mon Sep 14 23:48:14 2020
+loss: 0.168
+loss_cls: 0.168
+loss_fg: 0.279
+loss_bce: 0.000
+loss_3d: 0.259
+mean_loss_3d: 0.500
+feature_norm: 8360.776
+kp number: 3674.214
+loss_mask: 0.056
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.838
+AP_nave: 0.730
+AP_altar: 0.163
+AP_tower: 0.125
+AP_glass: 0.960
+AP_transept: 0.219
+AP_portal: 0.442
+AP_monument: 0.205
+AP_cloister: 0.029
+AP_dome: 0.033
+AP_apse: 0.109
+AP_chancel: 0.482
+mAP: 0.361
+Train epoch:  1.2e+01m
+Epoch >>>  5
+New Epoch:  Tue Sep 15 00:00:37 2020
+loss: 0.194
+loss_cls: 0.166
+loss_fg: 0.230
+loss_bce: 0.000
+loss_3d: 0.431
+mean_loss_3d: 0.783
+feature_norm: 10665.903
+kp number: 3674.881
+loss_mask: 0.029
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.838
+AP_nave: 0.717
+AP_altar: 0.153
+AP_tower: 0.141
+AP_glass: 0.951
+AP_transept: 0.223
+AP_portal: 0.564
+AP_monument: 0.206
+AP_cloister: 0.031
+AP_dome: 0.037
+AP_apse: 0.134
+AP_chancel: 0.571
+mAP: 0.380
+Train epoch:  1.2e+01m
+Epoch >>>  6
+AP_facade: 0.600
+AP_nave: 0.411
+AP_altar: 0.313
+AP_tower: 0.224
+AP_glass: 0.859
+AP_transept: 0.048
+AP_portal: 0.293
+AP_monument: 0.062
+AP_cloister: 0.036
+AP_dome: 0.046
+AP_apse: 0.038
+AP_chancel: 0.076
+mAP: 0.250
+>>> Saving checkpoint with score 6.94e-01, epoch 6
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 00:36:08 2020
+loss: 0.203
+loss_cls: 0.169
+loss_fg: 0.213
+loss_bce: 0.000
+loss_3d: 0.694
+mean_loss_3d: 1.152
+feature_norm: 13383.391
+kp number: 3603.426
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.806
+AP_nave: 0.719
+AP_altar: 0.146
+AP_tower: 0.152
+AP_glass: 0.951
+AP_transept: 0.216
+AP_portal: 0.625
+AP_monument: 0.210
+AP_cloister: 0.034
+AP_dome: 0.040
+AP_apse: 0.132
+AP_chancel: 0.601
+mAP: 0.386
+Train epoch:  1.2e+01m
+Epoch >>>  7
+New Epoch:  Tue Sep 15 00:48:33 2020
+loss: 0.199
+loss_cls: 0.165
+loss_fg: 0.208
+loss_bce: 0.000
+loss_3d: 0.783
+mean_loss_3d: 1.295
+feature_norm: 14511.213
+kp number: 3619.157
+loss_mask: 0.033
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.821
+AP_nave: 0.726
+AP_altar: 0.149
+AP_tower: 0.171
+AP_glass: 0.951
+AP_transept: 0.231
+AP_portal: 0.685
+AP_monument: 0.234
+AP_cloister: 0.033
+AP_dome: 0.038
+AP_apse: 0.129
+AP_chancel: 0.668
+mAP: 0.403
+Train epoch:  1.2e+01m
+Epoch >>>  8
+AP_facade: 0.688
+AP_nave: 0.464
+AP_altar: 0.301
+AP_tower: 0.257
+AP_glass: 0.859
+AP_transept: 0.067
+AP_portal: 0.345
+AP_monument: 0.075
+AP_cloister: 0.031
+AP_dome: 0.048
+AP_apse: 0.038
+AP_chancel: 0.073
+mAP: 0.270
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 01:23:50 2020
+loss: 0.192
+loss_cls: 0.160
+loss_fg: 0.214
+loss_bce: 0.000
+loss_3d: 0.734
+mean_loss_3d: 1.279
+feature_norm: 14986.164
+kp number: 3670.352
+loss_mask: 0.032
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.839
+AP_nave: 0.733
+AP_altar: 0.155
+AP_tower: 0.170
+AP_glass: 0.956
+AP_transept: 0.247
+AP_portal: 0.717
+AP_monument: 0.244
+AP_cloister: 0.032
+AP_dome: 0.038
+AP_apse: 0.122
+AP_chancel: 0.683
+mAP: 0.411
+Train epoch:  1.2e+01m
+Epoch >>>  9
+New Epoch:  Tue Sep 15 01:36:06 2020
+loss: 0.191
+loss_cls: 0.158
+loss_fg: 0.208
+loss_bce: 0.000
+loss_3d: 0.741
+mean_loss_3d: 1.357
+feature_norm: 15778.457
+kp number: 3690.589
+loss_mask: 0.033
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.838
+AP_nave: 0.732
+AP_altar: 0.160
+AP_tower: 0.178
+AP_glass: 0.955
+AP_transept: 0.246
+AP_portal: 0.740
+AP_monument: 0.256
+AP_cloister: 0.034
+AP_dome: 0.041
+AP_apse: 0.114
+AP_chancel: 0.684
+mAP: 0.415
+Train epoch:  1.2e+01m
+Epoch >>>  10
+AP_facade: 0.645
+AP_nave: 0.474
+AP_altar: 0.342
+AP_tower: 0.057
+AP_glass: 0.842
+AP_transept: 0.071
+AP_portal: 0.435
+AP_monument: 0.068
+AP_cloister: 0.049
+AP_dome: 0.041
+AP_apse: 0.038
+AP_chancel: 0.059
+mAP: 0.260
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 02:11:16 2020
+loss: 0.188
+loss_cls: 0.156
+loss_fg: 0.203
+loss_bce: 0.000
+loss_3d: 0.768
+mean_loss_3d: 1.419
+feature_norm: 16424.499
+kp number: 3637.811
+loss_mask: 0.033
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.853
+AP_nave: 0.749
+AP_altar: 0.188
+AP_tower: 0.185
+AP_glass: 0.959
+AP_transept: 0.266
+AP_portal: 0.748
+AP_monument: 0.248
+AP_cloister: 0.039
+AP_dome: 0.048
+AP_apse: 0.131
+AP_chancel: 0.729
+mAP: 0.428
+Train epoch:  1.2e+01m
+Epoch >>>  11
+New Epoch:  Tue Sep 15 02:23:32 2020
+loss: 0.189
+loss_cls: 0.155
+loss_fg: 0.203
+loss_bce: 0.000
+loss_3d: 0.779
+mean_loss_3d: 1.444
+feature_norm: 16864.123
+kp number: 3587.240
+loss_mask: 0.034
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.849
+AP_nave: 0.760
+AP_altar: 0.169
+AP_tower: 0.184
+AP_glass: 0.961
+AP_transept: 0.260
+AP_portal: 0.766
+AP_monument: 0.272
+AP_cloister: 0.040
+AP_dome: 0.052
+AP_apse: 0.129
+AP_chancel: 0.722
+mAP: 0.430
+Train epoch:  1.3e+01m
+Epoch >>>  12
+AP_facade: 0.662
+AP_nave: 0.429
+AP_altar: 0.221
+AP_tower: 0.062
+AP_glass: 0.848
+AP_transept: 0.080
+AP_portal: 0.232
+AP_monument: 0.100
+AP_cloister: 0.052
+AP_dome: 0.046
+AP_apse: 0.046
+AP_chancel: 0.055
+mAP: 0.236
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 02:58:57 2020
+loss: 0.187
+loss_cls: 0.153
+loss_fg: 0.203
+loss_bce: 0.000
+loss_3d: 0.793
+mean_loss_3d: 1.488
+feature_norm: 17157.190
+kp number: 3655.805
+loss_mask: 0.034
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.853
+AP_nave: 0.773
+AP_altar: 0.169
+AP_tower: 0.180
+AP_glass: 0.958
+AP_transept: 0.300
+AP_portal: 0.776
+AP_monument: 0.278
+AP_cloister: 0.038
+AP_dome: 0.049
+AP_apse: 0.127
+AP_chancel: 0.732
+mAP: 0.436
+Train epoch:  1.2e+01m
+Epoch >>>  13
+New Epoch:  Tue Sep 15 03:11:14 2020
+loss: 0.185
+loss_cls: 0.151
+loss_fg: 0.204
+loss_bce: 0.000
+loss_3d: 0.798
+mean_loss_3d: 1.457
+feature_norm: 17392.193
+kp number: 3562.210
+loss_mask: 0.034
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.857
+AP_nave: 0.779
+AP_altar: 0.181
+AP_tower: 0.187
+AP_glass: 0.960
+AP_transept: 0.302
+AP_portal: 0.784
+AP_monument: 0.274
+AP_cloister: 0.037
+AP_dome: 0.042
+AP_apse: 0.134
+AP_chancel: 0.768
+mAP: 0.442
+Train epoch:  1.3e+01m
+Epoch >>>  14
+AP_facade: 0.654
+AP_nave: 0.326
+AP_altar: 0.343
+AP_tower: 0.057
+AP_glass: 0.874
+AP_transept: 0.090
+AP_portal: 0.472
+AP_monument: 0.107
+AP_cloister: 0.064
+AP_dome: 0.039
+AP_apse: 0.038
+AP_chancel: 0.049
+mAP: 0.259
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 03:46:47 2020
+loss: 0.184
+loss_cls: 0.149
+loss_fg: 0.205
+loss_bce: 0.000
+loss_3d: 0.824
+mean_loss_3d: 1.548
+feature_norm: 17683.027
+kp number: 3617.530
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.859
+AP_nave: 0.769
+AP_altar: 0.174
+AP_tower: 0.186
+AP_glass: 0.963
+AP_transept: 0.321
+AP_portal: 0.793
+AP_monument: 0.301
+AP_cloister: 0.040
+AP_dome: 0.046
+AP_apse: 0.153
+AP_chancel: 0.788
+mAP: 0.449
+Train epoch:  1.2e+01m
+Epoch >>>  15
+New Epoch:  Tue Sep 15 03:58:52 2020
+loss: 0.183
+loss_cls: 0.148
+loss_fg: 0.205
+loss_bce: 0.000
+loss_3d: 0.845
+mean_loss_3d: 1.542
+feature_norm: 17771.370
+kp number: 3592.077
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.869
+AP_nave: 0.792
+AP_altar: 0.192
+AP_tower: 0.169
+AP_glass: 0.963
+AP_transept: 0.322
+AP_portal: 0.797
+AP_monument: 0.295
+AP_cloister: 0.041
+AP_dome: 0.050
+AP_apse: 0.149
+AP_chancel: 0.806
+mAP: 0.454
+Train epoch:  1.2e+01m
+Epoch >>>  16
+AP_facade: 0.649
+AP_nave: 0.494
+AP_altar: 0.329
+AP_tower: 0.061
+AP_glass: 0.853
+AP_transept: 0.075
+AP_portal: 0.449
+AP_monument: 0.102
+AP_cloister: 0.029
+AP_dome: 0.047
+AP_apse: 0.037
+AP_chancel: 0.047
+mAP: 0.264
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 04:34:06 2020
+loss: 0.182
+loss_cls: 0.147
+loss_fg: 0.205
+loss_bce: 0.000
+loss_3d: 0.858
+mean_loss_3d: 1.561
+feature_norm: 18067.875
+kp number: 3603.520
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.867
+AP_nave: 0.793
+AP_altar: 0.190
+AP_tower: 0.175
+AP_glass: 0.963
+AP_transept: 0.354
+AP_portal: 0.815
+AP_monument: 0.302
+AP_cloister: 0.045
+AP_dome: 0.048
+AP_apse: 0.159
+AP_chancel: 0.802
+mAP: 0.459
+Train epoch:  1.2e+01m
+Epoch >>>  17
+New Epoch:  Tue Sep 15 04:46:22 2020
+loss: 0.180
+loss_cls: 0.145
+loss_fg: 0.206
+loss_bce: 0.000
+loss_3d: 0.875
+mean_loss_3d: 1.532
+feature_norm: 18239.050
+kp number: 3582.890
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.873
+AP_nave: 0.802
+AP_altar: 0.200
+AP_tower: 0.186
+AP_glass: 0.960
+AP_transept: 0.424
+AP_portal: 0.817
+AP_monument: 0.327
+AP_cloister: 0.044
+AP_dome: 0.050
+AP_apse: 0.170
+AP_chancel: 0.799
+mAP: 0.471
+Train epoch:  1.2e+01m
+Epoch >>>  18
+AP_facade: 0.655
+AP_nave: 0.419
+AP_altar: 0.336
+AP_tower: 0.053
+AP_glass: 0.844
+AP_transept: 0.072
+AP_portal: 0.397
+AP_monument: 0.058
+AP_cloister: 0.025
+AP_dome: 0.033
+AP_apse: 0.041
+AP_chancel: 0.042
+mAP: 0.248
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 05:21:44 2020
+loss: 0.181
+loss_cls: 0.144
+loss_fg: 0.206
+loss_bce: 0.000
+loss_3d: 0.883
+mean_loss_3d: 1.566
+feature_norm: 18384.722
+kp number: 3577.196
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.874
+AP_nave: 0.797
+AP_altar: 0.201
+AP_tower: 0.184
+AP_glass: 0.959
+AP_transept: 0.451
+AP_portal: 0.832
+AP_monument: 0.327
+AP_cloister: 0.046
+AP_dome: 0.055
+AP_apse: 0.180
+AP_chancel: 0.805
+mAP: 0.476
+Train epoch:  1.2e+01m
+Epoch >>>  19
+New Epoch:  Tue Sep 15 05:33:54 2020
+loss: 0.179
+loss_cls: 0.143
+loss_fg: 0.206
+loss_bce: 0.000
+loss_3d: 0.913
+mean_loss_3d: 1.589
+feature_norm: 18799.113
+kp number: 3642.641
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.875
+AP_nave: 0.818
+AP_altar: 0.204
+AP_tower: 0.184
+AP_glass: 0.961
+AP_transept: 0.472
+AP_portal: 0.837
+AP_monument: 0.317
+AP_cloister: 0.046
+AP_dome: 0.058
+AP_apse: 0.171
+AP_chancel: 0.819
+mAP: 0.480
+Train epoch:  1.2e+01m
+Epoch >>>  20
+AP_facade: 0.635
+AP_nave: 0.504
+AP_altar: 0.402
+AP_tower: 0.076
+AP_glass: 0.869
+AP_transept: 0.064
+AP_portal: 0.469
+AP_monument: 0.077
+AP_cloister: 0.037
+AP_dome: 0.049
+AP_apse: 0.035
+AP_chancel: 0.059
+mAP: 0.273
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 06:09:10 2020
+loss: 0.179
+loss_cls: 0.142
+loss_fg: 0.206
+loss_bce: 0.000
+loss_3d: 0.902
+mean_loss_3d: 1.604
+feature_norm: 18969.702
+kp number: 3650.714
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.875
+AP_nave: 0.815
+AP_altar: 0.196
+AP_tower: 0.184
+AP_glass: 0.963
+AP_transept: 0.481
+AP_portal: 0.836
+AP_monument: 0.328
+AP_cloister: 0.043
+AP_dome: 0.060
+AP_apse: 0.173
+AP_chancel: 0.806
+mAP: 0.480
+Train epoch:  1.2e+01m
+Epoch >>>  21
+New Epoch:  Tue Sep 15 06:21:18 2020
+loss: 0.178
+loss_cls: 0.141
+loss_fg: 0.207
+loss_bce: 0.000
+loss_3d: 0.886
+mean_loss_3d: 1.558
+feature_norm: 19170.078
+kp number: 3563.411
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.884
+AP_nave: 0.818
+AP_altar: 0.197
+AP_tower: 0.199
+AP_glass: 0.961
+AP_transept: 0.511
+AP_portal: 0.840
+AP_monument: 0.331
+AP_cloister: 0.048
+AP_dome: 0.057
+AP_apse: 0.166
+AP_chancel: 0.820
+mAP: 0.486
+Train epoch:  1.2e+01m
+Epoch >>>  22
+AP_facade: 0.601
+AP_nave: 0.451
+AP_altar: 0.211
+AP_tower: 0.067
+AP_glass: 0.868
+AP_transept: 0.061
+AP_portal: 0.492
+AP_monument: 0.051
+AP_cloister: 0.020
+AP_dome: 0.040
+AP_apse: 0.037
+AP_chancel: 0.049
+mAP: 0.246
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 06:56:36 2020
+loss: 0.178
+loss_cls: 0.140
+loss_fg: 0.204
+loss_bce: 0.000
+loss_3d: 0.860
+mean_loss_3d: 1.571
+feature_norm: 19611.103
+kp number: 3638.484
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.879
+AP_nave: 0.821
+AP_altar: 0.209
+AP_tower: 0.207
+AP_glass: 0.963
+AP_transept: 0.510
+AP_portal: 0.843
+AP_monument: 0.314
+AP_cloister: 0.046
+AP_dome: 0.061
+AP_apse: 0.179
+AP_chancel: 0.829
+mAP: 0.488
+Train epoch:  1.2e+01m
+Epoch >>>  23
+New Epoch:  Tue Sep 15 07:08:44 2020
+loss: 0.178
+loss_cls: 0.140
+loss_fg: 0.203
+loss_bce: 0.000
+loss_3d: 0.849
+mean_loss_3d: 1.581
+feature_norm: 20009.709
+kp number: 3635.260
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.878
+AP_nave: 0.822
+AP_altar: 0.208
+AP_tower: 0.202
+AP_glass: 0.960
+AP_transept: 0.530
+AP_portal: 0.842
+AP_monument: 0.318
+AP_cloister: 0.045
+AP_dome: 0.053
+AP_apse: 0.193
+AP_chancel: 0.820
+mAP: 0.489
+Train epoch:  1.2e+01m
+Epoch >>>  24
+AP_facade: 0.629
+AP_nave: 0.485
+AP_altar: 0.247
+AP_tower: 0.170
+AP_glass: 0.863
+AP_transept: 0.064
+AP_portal: 0.369
+AP_monument: 0.054
+AP_cloister: 0.018
+AP_dome: 0.043
+AP_apse: 0.032
+AP_chancel: 0.058
+mAP: 0.253
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 07:44:37 2020
+loss: 0.177
+loss_cls: 0.139
+loss_fg: 0.202
+loss_bce: 0.000
+loss_3d: 0.833
+mean_loss_3d: 1.568
+feature_norm: 20320.005
+kp number: 3713.299
+loss_mask: 0.038
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.881
+AP_nave: 0.817
+AP_altar: 0.205
+AP_tower: 0.201
+AP_glass: 0.962
+AP_transept: 0.549
+AP_portal: 0.846
+AP_monument: 0.334
+AP_cloister: 0.043
+AP_dome: 0.058
+AP_apse: 0.184
+AP_chancel: 0.819
+mAP: 0.492
+Train epoch:  1.2e+01m
+Epoch >>>  25
+New Epoch:  Tue Sep 15 07:56:47 2020
+loss: 0.176
+loss_cls: 0.139
+loss_fg: 0.202
+loss_bce: 0.000
+loss_3d: 0.832
+mean_loss_3d: 1.528
+feature_norm: 20326.619
+kp number: 3643.230
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.885
+AP_nave: 0.829
+AP_altar: 0.196
+AP_tower: 0.193
+AP_glass: 0.957
+AP_transept: 0.539
+AP_portal: 0.836
+AP_monument: 0.333
+AP_cloister: 0.047
+AP_dome: 0.053
+AP_apse: 0.181
+AP_chancel: 0.819
+mAP: 0.489
+Train epoch:  1.2e+01m
+Epoch >>>  26
+AP_facade: 0.619
+AP_nave: 0.484
+AP_altar: 0.146
+AP_tower: 0.088
+AP_glass: 0.833
+AP_transept: 0.055
+AP_portal: 0.494
+AP_monument: 0.048
+AP_cloister: 0.013
+AP_dome: 0.062
+AP_apse: 0.036
+AP_chancel: 0.043
+mAP: 0.243
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 08:31:51 2020
+loss: 0.175
+loss_cls: 0.139
+loss_fg: 0.200
+loss_bce: 0.000
+loss_3d: 0.816
+mean_loss_3d: 1.530
+feature_norm: 20631.152
+kp number: 3614.361
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.882
+AP_nave: 0.826
+AP_altar: 0.193
+AP_tower: 0.201
+AP_glass: 0.962
+AP_transept: 0.548
+AP_portal: 0.840
+AP_monument: 0.344
+AP_cloister: 0.047
+AP_dome: 0.061
+AP_apse: 0.176
+AP_chancel: 0.837
+mAP: 0.493
+Train epoch:  1.2e+01m
+Epoch >>>  27
+New Epoch:  Tue Sep 15 08:44:06 2020
+loss: 0.175
+loss_cls: 0.138
+loss_fg: 0.198
+loss_bce: 0.000
+loss_3d: 0.802
+mean_loss_3d: 1.512
+feature_norm: 20750.655
+kp number: 3669.618
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.885
+AP_nave: 0.835
+AP_altar: 0.206
+AP_tower: 0.197
+AP_glass: 0.960
+AP_transept: 0.554
+AP_portal: 0.846
+AP_monument: 0.334
+AP_cloister: 0.049
+AP_dome: 0.055
+AP_apse: 0.185
+AP_chancel: 0.812
+mAP: 0.493
+Train epoch:  1.2e+01m
+Epoch >>>  28
+AP_facade: 0.646
+AP_nave: 0.252
+AP_altar: 0.073
+AP_tower: 0.094
+AP_glass: 0.842
+AP_transept: 0.050
+AP_portal: 0.406
+AP_monument: 0.032
+AP_cloister: 0.010
+AP_dome: 0.043
+AP_apse: 0.036
+AP_chancel: 0.017
+mAP: 0.208
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 09:19:22 2020
+loss: 0.173
+loss_cls: 0.137
+loss_fg: 0.198
+loss_bce: 0.000
+loss_3d: 0.804
+mean_loss_3d: 1.506
+feature_norm: 20920.533
+kp number: 3595.137
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.886
+AP_nave: 0.832
+AP_altar: 0.200
+AP_tower: 0.205
+AP_glass: 0.962
+AP_transept: 0.565
+AP_portal: 0.842
+AP_monument: 0.334
+AP_cloister: 0.049
+AP_dome: 0.062
+AP_apse: 0.201
+AP_chancel: 0.823
+mAP: 0.497
+Train epoch:  1.2e+01m
+Epoch >>>  29
+New Epoch:  Tue Sep 15 09:31:33 2020
+loss: 0.173
+loss_cls: 0.137
+loss_fg: 0.197
+loss_bce: 0.000
+loss_3d: 0.797
+mean_loss_3d: 1.485
+feature_norm: 21123.005
+kp number: 3654.805
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.884
+AP_nave: 0.828
+AP_altar: 0.208
+AP_tower: 0.201
+AP_glass: 0.963
+AP_transept: 0.556
+AP_portal: 0.849
+AP_monument: 0.344
+AP_cloister: 0.044
+AP_dome: 0.058
+AP_apse: 0.195
+AP_chancel: 0.819
+mAP: 0.496
+Train epoch:  1.3e+01m
+Epoch >>>  30
+AP_facade: 0.661
+AP_nave: 0.350
+AP_altar: 0.081
+AP_tower: 0.094
+AP_glass: 0.854
+AP_transept: 0.066
+AP_portal: 0.455
+AP_monument: 0.025
+AP_cloister: 0.009
+AP_dome: 0.029
+AP_apse: 0.042
+AP_chancel: 0.042
+mAP: 0.226
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 10:06:58 2020
+loss: 0.172
+loss_cls: 0.136
+loss_fg: 0.196
+loss_bce: 0.000
+loss_3d: 0.781
+mean_loss_3d: 1.474
+feature_norm: 21002.205
+kp number: 3636.587
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.892
+AP_nave: 0.838
+AP_altar: 0.205
+AP_tower: 0.196
+AP_glass: 0.962
+AP_transept: 0.584
+AP_portal: 0.836
+AP_monument: 0.338
+AP_cloister: 0.049
+AP_dome: 0.057
+AP_apse: 0.203
+AP_chancel: 0.819
+mAP: 0.498
+Train epoch:  1.2e+01m
+Epoch >>>  31
+New Epoch:  Tue Sep 15 10:19:11 2020
+loss: 0.172
+loss_cls: 0.136
+loss_fg: 0.196
+loss_bce: 0.000
+loss_3d: 0.785
+mean_loss_3d: 1.459
+feature_norm: 21397.262
+kp number: 3661.403
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.885
+AP_nave: 0.830
+AP_altar: 0.208
+AP_tower: 0.209
+AP_glass: 0.959
+AP_transept: 0.564
+AP_portal: 0.853
+AP_monument: 0.343
+AP_cloister: 0.050
+AP_dome: 0.052
+AP_apse: 0.216
+AP_chancel: 0.822
+mAP: 0.499
+Train epoch:  1.2e+01m
+Epoch >>>  32
+AP_facade: 0.677
+AP_nave: 0.455
+AP_altar: 0.135
+AP_tower: 0.071
+AP_glass: 0.875
+AP_transept: 0.072
+AP_portal: 0.378
+AP_monument: 0.035
+AP_cloister: 0.016
+AP_dome: 0.039
+AP_apse: 0.034
+AP_chancel: 0.055
+mAP: 0.237
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 10:54:20 2020
+loss: 0.172
+loss_cls: 0.136
+loss_fg: 0.195
+loss_bce: 0.000
+loss_3d: 0.785
+mean_loss_3d: 1.442
+feature_norm: 21552.888
+kp number: 3680.789
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.887
+AP_nave: 0.835
+AP_altar: 0.221
+AP_tower: 0.203
+AP_glass: 0.964
+AP_transept: 0.579
+AP_portal: 0.841
+AP_monument: 0.347
+AP_cloister: 0.048
+AP_dome: 0.058
+AP_apse: 0.222
+AP_chancel: 0.822
+mAP: 0.502
+Train epoch:  1.2e+01m
+Epoch >>>  33
+New Epoch:  Tue Sep 15 11:06:29 2020
+loss: 0.172
+loss_cls: 0.136
+loss_fg: 0.193
+loss_bce: 0.000
+loss_3d: 0.794
+mean_loss_3d: 1.423
+feature_norm: 21926.602
+kp number: 3594.606
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.885
+AP_nave: 0.837
+AP_altar: 0.220
+AP_tower: 0.206
+AP_glass: 0.961
+AP_transept: 0.579
+AP_portal: 0.844
+AP_monument: 0.330
+AP_cloister: 0.049
+AP_dome: 0.065
+AP_apse: 0.218
+AP_chancel: 0.832
+mAP: 0.502
+Train epoch:  1.3e+01m
+Epoch >>>  34
+AP_facade: 0.662
+AP_nave: 0.343
+AP_altar: 0.060
+AP_tower: 0.062
+AP_glass: 0.845
+AP_transept: 0.060
+AP_portal: 0.293
+AP_monument: 0.021
+AP_cloister: 0.010
+AP_dome: 0.028
+AP_apse: 0.036
+AP_chancel: 0.019
+mAP: 0.203
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 11:41:53 2020
+loss: 0.171
+loss_cls: 0.136
+loss_fg: 0.192
+loss_bce: 0.000
+loss_3d: 0.788
+mean_loss_3d: 1.423
+feature_norm: 22168.511
+kp number: 3686.911
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.885
+AP_nave: 0.838
+AP_altar: 0.202
+AP_tower: 0.211
+AP_glass: 0.962
+AP_transept: 0.579
+AP_portal: 0.841
+AP_monument: 0.346
+AP_cloister: 0.040
+AP_dome: 0.062
+AP_apse: 0.219
+AP_chancel: 0.824
+mAP: 0.501
+Train epoch:  1.2e+01m
+Epoch >>>  35
+New Epoch:  Tue Sep 15 11:54:16 2020
+loss: 0.172
+loss_cls: 0.135
+loss_fg: 0.193
+loss_bce: 0.000
+loss_3d: 0.786
+mean_loss_3d: 1.421
+feature_norm: 22352.989
+kp number: 3546.644
+loss_mask: 0.037
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.887
+AP_nave: 0.831
+AP_altar: 0.210
+AP_tower: 0.201
+AP_glass: 0.962
+AP_transept: 0.605
+AP_portal: 0.845
+AP_monument: 0.332
+AP_cloister: 0.050
+AP_dome: 0.060
+AP_apse: 0.214
+AP_chancel: 0.816
+mAP: 0.501
+Train epoch:  1.3e+01m
+Epoch >>>  36
+AP_facade: 0.648
+AP_nave: 0.219
+AP_altar: 0.059
+AP_tower: 0.067
+AP_glass: 0.844
+AP_transept: 0.062
+AP_portal: 0.274
+AP_monument: 0.022
+AP_cloister: 0.010
+AP_dome: 0.040
+AP_apse: 0.037
+AP_chancel: 0.020
+mAP: 0.192
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 12:29:46 2020
+loss: 0.170
+loss_cls: 0.134
+loss_fg: 0.193
+loss_bce: 0.000
+loss_3d: 0.790
+mean_loss_3d: 1.421
+feature_norm: 22483.544
+kp number: 3635.040
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.891
+AP_nave: 0.842
+AP_altar: 0.213
+AP_tower: 0.214
+AP_glass: 0.962
+AP_transept: 0.612
+AP_portal: 0.844
+AP_monument: 0.366
+AP_cloister: 0.044
+AP_dome: 0.055
+AP_apse: 0.220
+AP_chancel: 0.822
+mAP: 0.507
+Train epoch:  1.2e+01m
+Epoch >>>  37
+New Epoch:  Tue Sep 15 12:42:03 2020
+loss: 0.170
+loss_cls: 0.135
+loss_fg: 0.191
+loss_bce: 0.000
+loss_3d: 0.777
+mean_loss_3d: 1.385
+feature_norm: 22426.263
+kp number: 3648.890
+loss_mask: 0.035
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.890
+AP_nave: 0.841
+AP_altar: 0.205
+AP_tower: 0.203
+AP_glass: 0.960
+AP_transept: 0.606
+AP_portal: 0.844
+AP_monument: 0.341
+AP_cloister: 0.046
+AP_dome: 0.064
+AP_apse: 0.216
+AP_chancel: 0.807
+mAP: 0.502
+Train epoch:  1.3e+01m
+Epoch >>>  38
+AP_facade: 0.649
+AP_nave: 0.206
+AP_altar: 0.057
+AP_tower: 0.054
+AP_glass: 0.870
+AP_transept: 0.065
+AP_portal: 0.317
+AP_monument: 0.024
+AP_cloister: 0.010
+AP_dome: 0.040
+AP_apse: 0.039
+AP_chancel: 0.019
+mAP: 0.196
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 13:17:37 2020
+loss: 0.170
+loss_cls: 0.134
+loss_fg: 0.194
+loss_bce: 0.000
+loss_3d: 0.788
+mean_loss_3d: 1.419
+feature_norm: 22696.922
+kp number: 3637.875
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.890
+AP_nave: 0.841
+AP_altar: 0.218
+AP_tower: 0.208
+AP_glass: 0.961
+AP_transept: 0.605
+AP_portal: 0.849
+AP_monument: 0.362
+AP_cloister: 0.046
+AP_dome: 0.064
+AP_apse: 0.221
+AP_chancel: 0.829
+mAP: 0.508
+Train epoch:  1.2e+01m
+Epoch >>>  39
+New Epoch:  Tue Sep 15 13:29:55 2020
+loss: 0.170
+loss_cls: 0.133
+loss_fg: 0.193
+loss_bce: 0.000
+loss_3d: 0.776
+mean_loss_3d: 1.398
+feature_norm: 22735.779
+kp number: 3606.465
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.892
+AP_nave: 0.846
+AP_altar: 0.212
+AP_tower: 0.209
+AP_glass: 0.962
+AP_transept: 0.625
+AP_portal: 0.836
+AP_monument: 0.352
+AP_cloister: 0.048
+AP_dome: 0.054
+AP_apse: 0.237
+AP_chancel: 0.826
+mAP: 0.508
+Train epoch:  1.3e+01m
+Epoch >>>  40
+AP_facade: 0.621
+AP_nave: 0.235
+AP_altar: 0.058
+AP_tower: 0.122
+AP_glass: 0.857
+AP_transept: 0.065
+AP_portal: 0.459
+AP_monument: 0.023
+AP_cloister: 0.010
+AP_dome: 0.065
+AP_apse: 0.032
+AP_chancel: 0.042
+mAP: 0.216
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 14:05:27 2020
+loss: 0.171
+loss_cls: 0.135
+loss_fg: 0.192
+loss_bce: 0.000
+loss_3d: 0.773
+mean_loss_3d: 1.400
+feature_norm: 22717.152
+kp number: 3555.262
+loss_mask: 0.036
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.879
+AP_nave: 0.840
+AP_altar: 0.221
+AP_tower: 0.223
+AP_glass: 0.963
+AP_transept: 0.604
+AP_portal: 0.845
+AP_monument: 0.367
+AP_cloister: 0.044
+AP_dome: 0.070
+AP_apse: 0.232
+AP_chancel: 0.819
+mAP: 0.509
+Train epoch:  1.2e+01m
+nohup: ignoring input
+Config: 
+ {'NUM_GPUS': 1, 'TRAIN': {'BATCH_SIZE': 16, 'NUM_EPOCHS': 40, 'NUM_WORKERS': 1, 'MASK_LOSS': 0.0, 'PRETRAIN': 5}, 'TEST': {'METHOD': 'multiscale', 'DATA_ROOT': '/fastdata/naraslanov', 'SCALES': [1, 0.75, 1.25, 1.5], 'FLIP': True, 'PAD_SIZE': [768, 768], 'CROP_SIZE': [448, 448], 'CROP_GRID_SIZE': [2, 2], 'BATCH_SIZE': 8, 'BG_POW': 3, 'NUM_CLASSES': 21, 'USE_GT_LABELS': True, 'FP_CUT_SCORE': 0.3}, 'DATASET': {'CROP_SIZE': 224, 'SCALE_FROM': 0.9, 'SCALE_TO': 1.0, 'PATH': 'data/images'}, 'NET': {'MODEL': 'ae', 'BACKBONE': 'resnet50', 'PRE_WEIGHTS_PATH': './models/weights/resnet50-19c8e357.pth', 'OPT': 'Adam', 'LR': 0.0005, 'BETA1': 0.5, 'MOMENTUM': 0.9, 'WEIGHT_DECAY': 0.0005, 'LOSS': 'Separate', 'MASK_LOSS_BCE': 1.0, 'BG_SCORE': 0.1, 'FOCAL_P': 3, 'FOCAL_LAMBDA': 0.01, 'PAMR_KERNEL': [1, 2, 4, 8, 12, 24], 'PAMR_ITER': 10, 'SG_PSI': 0.3}, 'MASKS': {'CRF': {'ALPHA_LOW': 4, 'ALPHA_HIGH': 32}}, 'CUDA': False, 'DEBUG': False, 'PYTORCH_VERSION_LESS_THAN_040': False}
+10436/18499 images have keypoints, 1231880 keypoints in total.
+0/3000 images have keypoints, 0 keypoints in total.
+Backbone: ResNet50
+Model: AE
+Loading weights from:  ./models/weights/resnet50-19c8e357.pth
+Group 0: #106, LR=5.000e-04
+Group 1: #53, LR=5.000e-04
+Group 2: #26, LR=5.000e-03
+Group 3: #13, LR=5.000e-03
+Loading fixed batch from ./logs/wikiscenes_corr/main/fixed_batch.pt
+Epoch >>>  0
+AP_facade: 0.268
+AP_nave: 0.157
+AP_altar: 0.113
+AP_tower: 0.096
+AP_glass: 0.131
+AP_transept: 0.059
+AP_portal: 0.196
+AP_monument: 0.030
+AP_cloister: 0.011
+AP_dome: 0.035
+AP_apse: 0.045
+AP_chancel: 0.036
+mAP: 0.098
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 15:27:27 2020
+loss: 0.385
+loss_cls: 0.230
+loss_fg: 0.164
+loss_bce: 0.000
+loss_3d: 1.554
+mean_loss_3d: 0.744
+feature_norm: 11791.475
+kp number: 3747.772
+loss_mask: 0.029
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.586
+AP_nave: 0.228
+AP_altar: 0.081
+AP_tower: 0.086
+AP_glass: 0.824
+AP_transept: 0.103
+AP_portal: 0.161
+AP_monument: 0.087
+AP_cloister: 0.019
+AP_dome: 0.020
+AP_apse: 0.048
+AP_chancel: 0.108
+mAP: 0.196
+Train epoch:  1.2e+01m
+Epoch >>>  1
+New Epoch:  Tue Sep 15 15:39:08 2020
+loss: 0.308
+loss_cls: 0.190
+loss_fg: 0.234
+loss_bce: 0.000
+loss_3d: 1.178
+mean_loss_3d: 0.187
+feature_norm: 9663.673
+kp number: 3615.138
+loss_mask: 0.053
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.755
+AP_nave: 0.606
+AP_altar: 0.100
+AP_tower: 0.083
+AP_glass: 0.940
+AP_transept: 0.131
+AP_portal: 0.268
+AP_monument: 0.131
+AP_cloister: 0.025
+AP_dome: 0.022
+AP_apse: 0.050
+AP_chancel: 0.331
+mAP: 0.287
+Train epoch:  1.2e+01m
+Epoch >>>  2
+AP_facade: 0.659
+AP_nave: 0.393
+AP_altar: 0.221
+AP_tower: 0.170
+AP_glass: 0.880
+AP_transept: 0.077
+AP_portal: 0.385
+AP_monument: 0.056
+AP_cloister: 0.022
+AP_dome: 0.037
+AP_apse: 0.045
+AP_chancel: 0.085
+mAP: 0.252
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 16:13:56 2020
+loss: 0.294
+loss_cls: 0.180
+loss_fg: 0.248
+loss_bce: 0.000
+loss_3d: 1.141
+mean_loss_3d: 0.199
+feature_norm: 9862.863
+kp number: 3595.721
+loss_mask: 0.062
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.800
+AP_nave: 0.703
+AP_altar: 0.112
+AP_tower: 0.097
+AP_glass: 0.943
+AP_transept: 0.189
+AP_portal: 0.386
+AP_monument: 0.169
+AP_cloister: 0.024
+AP_dome: 0.023
+AP_apse: 0.062
+AP_chancel: 0.394
+mAP: 0.325
+Train epoch:  1.3e+01m
+Epoch >>>  3
+New Epoch:  Tue Sep 15 16:26:32 2020
+loss: 0.293
+loss_cls: 0.179
+loss_fg: 0.242
+loss_bce: 0.000
+loss_3d: 1.146
+mean_loss_3d: 0.197
+feature_norm: 9886.536
+kp number: 3664.387
+loss_mask: 0.059
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.804
+AP_nave: 0.706
+AP_altar: 0.109
+AP_tower: 0.111
+AP_glass: 0.943
+AP_transept: 0.204
+AP_portal: 0.454
+AP_monument: 0.169
+AP_cloister: 0.026
+AP_dome: 0.023
+AP_apse: 0.071
+AP_chancel: 0.398
+mAP: 0.335
+Train epoch:  1.3e+01m
+Epoch >>>  4
+AP_facade: 0.537
+AP_nave: 0.498
+AP_altar: 0.204
+AP_tower: 0.281
+AP_glass: 0.855
+AP_transept: 0.048
+AP_portal: 0.376
+AP_monument: 0.073
+AP_cloister: 0.021
+AP_dome: 0.057
+AP_apse: 0.034
+AP_chancel: 0.059
+mAP: 0.254
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 17:02:51 2020
+loss: 0.293
+loss_cls: 0.180
+loss_fg: 0.239
+loss_bce: 0.000
+loss_3d: 1.131
+mean_loss_3d: 0.198
+feature_norm: 9867.217
+kp number: 3590.599
+loss_mask: 0.062
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.800
+AP_nave: 0.690
+AP_altar: 0.113
+AP_tower: 0.129
+AP_glass: 0.943
+AP_transept: 0.217
+AP_portal: 0.430
+AP_monument: 0.170
+AP_cloister: 0.026
+AP_dome: 0.022
+AP_apse: 0.083
+AP_chancel: 0.410
+mAP: 0.336
+Train epoch:  1.3e+01m
+Epoch >>>  5
+New Epoch:  Tue Sep 15 17:15:47 2020
+loss: 0.351
+loss_cls: 0.187
+loss_fg: 0.213
+loss_bce: 0.000
+loss_3d: 1.201
+mean_loss_3d: 0.269
+feature_norm: 11696.692
+kp number: 3643.090
+loss_mask: 0.044
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.799
+AP_nave: 0.665
+AP_altar: 0.104
+AP_tower: 0.135
+AP_glass: 0.938
+AP_transept: 0.195
+AP_portal: 0.459
+AP_monument: 0.154
+AP_cloister: 0.029
+AP_dome: 0.026
+AP_apse: 0.085
+AP_chancel: 0.385
+mAP: 0.331
+Train epoch:  1.3e+01m
+Epoch >>>  6
+AP_facade: 0.538
+AP_nave: 0.416
+AP_altar: 0.119
+AP_tower: 0.262
+AP_glass: 0.842
+AP_transept: 0.051
+AP_portal: 0.389
+AP_monument: 0.053
+AP_cloister: 0.017
+AP_dome: 0.057
+AP_apse: 0.038
+AP_chancel: 0.039
+mAP: 0.235
+>>> Saving checkpoint with score 6.13e-01, epoch 6
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 17:52:04 2020
+loss: 0.326
+loss_cls: 0.178
+loss_fg: 0.205
+loss_bce: 0.000
+loss_3d: 1.177
+mean_loss_3d: 0.287
+feature_norm: 12243.523
+kp number: 3594.023
+loss_mask: 0.031
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.815
+AP_nave: 0.703
+AP_altar: 0.118
+AP_tower: 0.139
+AP_glass: 0.948
+AP_transept: 0.218
+AP_portal: 0.508
+AP_monument: 0.173
+AP_cloister: 0.029
+AP_dome: 0.029
+AP_apse: 0.107
+AP_chancel: 0.454
+mAP: 0.354
+Train epoch:  1.3e+01m
+Epoch >>>  7
+New Epoch:  Tue Sep 15 18:05:06 2020
+loss: 0.316
+loss_cls: 0.171
+loss_fg: 0.213
+loss_bce: 0.000
+loss_3d: 1.163
+mean_loss_3d: 0.305
+feature_norm: 12555.830
+kp number: 3698.580
+loss_mask: 0.029
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.837
+AP_nave: 0.722
+AP_altar: 0.136
+AP_tower: 0.139
+AP_glass: 0.953
+AP_transept: 0.242
+AP_portal: 0.600
+AP_monument: 0.192
+AP_cloister: 0.027
+AP_dome: 0.032
+AP_apse: 0.124
+AP_chancel: 0.516
+mAP: 0.377
+Train epoch:  1.3e+01m
+Epoch >>>  8
+AP_facade: 0.597
+AP_nave: 0.527
+AP_altar: 0.212
+AP_tower: 0.264
+AP_glass: 0.847
+AP_transept: 0.068
+AP_portal: 0.403
+AP_monument: 0.093
+AP_cloister: 0.036
+AP_dome: 0.051
+AP_apse: 0.040
+AP_chancel: 0.066
+mAP: 0.267
+>>> Saving checkpoint with score 6.83e-01, epoch 8
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 18:41:14 2020
+nohup: ignoring input
+Config: 
+ {'NUM_GPUS': 1, 'TRAIN': {'BATCH_SIZE': 16, 'NUM_EPOCHS': 40, 'NUM_WORKERS': 1, 'MASK_LOSS': 0.0, 'PRETRAIN': 5}, 'TEST': {'METHOD': 'multiscale', 'DATA_ROOT': '/fastdata/naraslanov', 'SCALES': [1, 0.75, 1.25, 1.5], 'FLIP': True, 'PAD_SIZE': [768, 768], 'CROP_SIZE': [448, 448], 'CROP_GRID_SIZE': [2, 2], 'BATCH_SIZE': 8, 'BG_POW': 3, 'NUM_CLASSES': 21, 'USE_GT_LABELS': True, 'FP_CUT_SCORE': 0.3}, 'DATASET': {'CROP_SIZE': 224, 'SCALE_FROM': 0.9, 'SCALE_TO': 1.0, 'PATH': 'data/images'}, 'NET': {'MODEL': 'ae', 'BACKBONE': 'resnet50', 'PRE_WEIGHTS_PATH': './models/weights/resnet50-19c8e357.pth', 'OPT': 'Adam', 'LR': 0.0005, 'BETA1': 0.5, 'MOMENTUM': 0.9, 'WEIGHT_DECAY': 0.0005, 'LOSS': 'Separate', 'MASK_LOSS_BCE': 1.0, 'BG_SCORE': 0.1, 'FOCAL_P': 3, 'FOCAL_LAMBDA': 0.01, 'PAMR_KERNEL': [1, 2, 4, 8, 12, 24], 'PAMR_ITER': 10, 'SG_PSI': 0.3}, 'MASKS': {'CRF': {'ALPHA_LOW': 4, 'ALPHA_HIGH': 32}}, 'CUDA': False, 'DEBUG': False, 'PYTORCH_VERSION_LESS_THAN_040': False}
+10436/18499 images have keypoints, 1231880 keypoints in total.
+0/3000 images have keypoints, 0 keypoints in total.
+Backbone: ResNet50
+Model: AE
+Loading weights from:  ./models/weights/resnet50-19c8e357.pth
+Group 0: #106, LR=5.000e-04
+Group 1: #53, LR=5.000e-04
+Group 2: #26, LR=5.000e-03
+Group 3: #13, LR=5.000e-03
+Loading fixed batch from ./logs/wikiscenes_corr/main/fixed_batch.pt
+Epoch >>>  0
+AP_facade: 0.302
+AP_nave: 0.118
+AP_altar: 0.093
+AP_tower: 0.183
+AP_glass: 0.155
+AP_transept: 0.069
+AP_portal: 0.140
+AP_monument: 0.058
+AP_cloister: 0.015
+AP_dome: 0.057
+AP_apse: 0.032
+AP_chancel: 0.021
+mAP: 0.104
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 19:19:42 2020
+loss: 0.372
+loss_cls: 0.217
+loss_fg: 0.196
+loss_bce: 0.000
+loss_3d: 1.544
+mean_loss_3d: 0.012
+feature_norm: 2516.458
+kp number: 3747.772
+loss_mask: 0.032
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.614
+AP_nave: 0.318
+AP_altar: 0.092
+AP_tower: 0.089
+AP_glass: 0.900
+AP_transept: 0.108
+AP_portal: 0.176
+AP_monument: 0.093
+AP_cloister: 0.022
+AP_dome: 0.020
+AP_apse: 0.048
+AP_chancel: 0.151
+mAP: 0.219
+Train epoch:  1.2e+01m
+Epoch >>>  1
+New Epoch:  Tue Sep 15 19:31:26 2020
+loss: 0.344
+loss_cls: 0.199
+loss_fg: 0.211
+loss_bce: 0.000
+loss_3d: 1.455
+mean_loss_3d: 0.010
+feature_norm: 2532.078
+kp number: 3615.138
+loss_mask: 0.050
+Learning rate [0]: 5.000e-04
+Learning rate [1]: 5.000e-04
+Learning rate [2]: 5.000e-03
+Learning rate [3]: 5.000e-03
+AP_facade: 0.724
+AP_nave: 0.563
+AP_altar: 0.095
+AP_tower: 0.082
+AP_glass: 0.932
+AP_transept: 0.114
+AP_portal: 0.191
+AP_monument: 0.110
+AP_cloister: 0.025
+AP_dome: 0.021
+AP_apse: 0.047
+AP_chancel: 0.284
+mAP: 0.266
+Train epoch:  1.2e+01m
+Epoch >>>  2
+AP_facade: 0.586
+AP_nave: 0.466
+AP_altar: 0.154
+AP_tower: 0.185
+AP_glass: 0.859
+AP_transept: 0.055
+AP_portal: 0.123
+AP_monument: 0.032
+AP_cloister: 0.012
+AP_dome: 0.054
+AP_apse: 0.035
+AP_chancel: 0.082
+mAP: 0.220
+Validation / Val:  2.3e+01m
+New Epoch:  Tue Sep 15 20:06:13 2020
