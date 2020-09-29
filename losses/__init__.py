@@ -24,10 +24,8 @@ class CrossEntropy(nn.Module):
 class Separate(nn.Module):
 
     def forward(self, x, y):
-        m = nn.Sigmoid()
-        loss = nn.BCELoss(reduction='mean')
-        return loss(m(x), y)
-        # return F.cross_entropy(x, torch.argmax(y, -1))
+        loss = nn.BCEWithLogitsLoss()
+        return loss(x, y)
 
 def get_criterion(loss_name, **kwargs):
 

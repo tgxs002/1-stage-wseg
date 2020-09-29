@@ -1,11 +1,8 @@
 from __future__ import print_function
 
 
-import os, json
-import sys
-import math
+import os, json, random, sys, math, torch, copy
 import numpy as np
-import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from sklearn.metrics import average_precision_score, accuracy_score, confusion_matrix
@@ -24,6 +21,10 @@ from losses import get_criterion, mask_loss_ce
 from utils.timer import Timer
 from utils.stat_manager import StatManager
 from torchvision.utils import save_image as sv
+from torchvision import transforms
+
+import matplotlib.cm as mpl_color_map
+from PIL import Image, ImagePalette
 
 # specific to pytorch-v1 cuda-9.0
 # see: https://github.com/pytorch/pytorch/issues/15054#issuecomment-450191923
@@ -65,7 +66,6 @@ class DecTrainer(BaseTrainer):
 
         # optimizer using different LR
         enc_params = self.enc.parameter_groups(cfg.NET.LR, cfg.NET.WEIGHT_DECAY)
-        # print((enc_params)[3])
         self.optim_enc = self.get_optim(enc_params, cfg.NET)
 
         # checkpoint management
@@ -102,10 +102,10 @@ class DecTrainer(BaseTrainer):
 
         # classification
         cls_out, cls_fg, masks, mask_logits, pseudo_gt, loss_mask = self.enc(image, image_raw, gt_labels)
-        
+
         # classification loss
         loss_cls = self.criterion_cls(cls_out, gt_labels).mean()
-        
+
         # keep track of all losses for logging
         losses = {"loss_cls": loss_cls.item()}
         losses["loss_fg"] = cls_fg.mean().item()
@@ -120,6 +120,7 @@ class DecTrainer(BaseTrainer):
             # here we normalize the out_feature to make sure it doesn't optimize by scaling the feature vector
             if self.normalize_feature:
                 feature = feature / feature.norm(dim=1, keepdim=True)
+
             b, c, h, w = feature.shape
             feature = feature.reshape(2, b // 2, c, h, w)
             assert h == w, "not square"
@@ -178,7 +179,7 @@ class DecTrainer(BaseTrainer):
 
         # add 3d consistency loss
         if self.dataset == "wikiscenes_corr" and train:
-            loss += losses["loss_3d"] * self.loss_3d
+            loss += losses["loss_3d"] * (self.loss_3d / cfg.TRAIN.BATCH_SIZE)
 
         losses["loss"] = loss.item()
 
@@ -235,10 +236,15 @@ class DecTrainer(BaseTrainer):
             targets_all.append(gt_labels.cpu().numpy())
 
 
-            if self.fixed_batch is None:
+            if self.fixed_batch is None or "points" not in self.fixed_batch:
                 self.fixed_batch = {}
                 self.fixed_batch["image"]   = image.clone()
                 self.fixed_batch["labels"]  = gt_labels.clone()
+                random_points = list()
+                for i in range(cfg.TRAIN.BATCH_SIZE):
+                    # 3 points per image in a batch
+                    random_points.append([{"rx": random.random(), "ry": random.random()} for i in range(3)])
+                self.fixed_batch["points"] = random_points
                 torch.save(self.fixed_batch, self.fixed_batch_path)
 
             for loss_key, loss_val in losses.items():
@@ -271,8 +277,73 @@ class DecTrainer(BaseTrainer):
             print("Learning rate [{}]: {:4.3e}".format(ii, l['lr']))
             self.writer.add_scalar('lr/enc_group_%02d' % ii, l['lr'], epoch)
 
-        # self.writer.add_scalar('lr/bg_baseline', self.enc.module.mean.item(), epoch)
+        def apply_colormap_on_image(org_im, activation, colormap_name):
+            """
+                Apply heatmap on image
+            Args:
+                org_img (PIL img): Original image
+                activation_map (numpy arr): Activation map (grayscale) 0-255
+                colormap_name (str): Name of the colormap
+            """
+            # Get colormap
+            color_map = mpl_color_map.get_cmap(colormap_name)
+            no_trans_heatmap = color_map(activation)
+            # Change alpha channel in colormap to make sure original image is displayed
+            heatmap = copy.copy(no_trans_heatmap)
+            heatmap[:, :, 3] = 0.4
+            heatmap = Image.fromarray((heatmap*255).astype(np.uint8)).resize(org_im.shape[1:], Image.ANTIALIAS)
+            org_im = transforms.ToPILImage()(org_im).convert("RGBA")
+            no_trans_heatmap = Image.fromarray((no_trans_heatmap*255).astype(np.uint8))
 
+            # Apply heatmap on iamge
+            heatmap_on_image = Image.new("RGBA", org_im.size)
+            heatmap_on_image = Image.alpha_composite(heatmap_on_image, org_im)
+            heatmap_on_image = Image.alpha_composite(heatmap_on_image, heatmap)
+            return heatmap_on_image
+
+        # self.writer.add_scalar('lr/bg_baseline', self.enc.module.mean.item(), epoch)
+        with torch.no_grad():
+            # the second parameter is not used
+            image_raw = self.denorm(self.fixed_batch["image"].clone())
+            self.enc.eval()
+            _, _, masks, _, _, _ = self.enc(self.fixed_batch["image"], image_raw, self.fixed_batch["labels"])
+            feature = masks["feature"].cpu()
+            _, _, w, h = feature.shape
+            colormaps = list()
+            for i in range(cfg.TRAIN.BATCH_SIZE):
+                raw = [image_raw[k] for k in [i, i+cfg.TRAIN.BATCH_SIZE]]
+                for j in range(3):
+                    x = int(self.fixed_batch["points"][i][j]["rx"] * cfg.DATASET.CROP_SIZE)
+                    y = int(self.fixed_batch["points"][i][j]["ry"] * cfg.DATASET.CROP_SIZE)
+                    fx = int(self.fixed_batch["points"][i][j]["rx"] * w)
+                    fy = int(self.fixed_batch["points"][i][j]["ry"] * h)
+                    selected_feature = feature[i][:,fy, fx]
+                    heat = [torch.norm((feature[k] - selected_feature[:,None,None]), dim=0) for k in [i, i+cfg.TRAIN.BATCH_SIZE]]
+
+                    # normalize separately
+                    min_ = torch.min(heat[0].min(), heat[1].min())
+                    range_ = torch.max(heat[0].max(), heat[1].max()) - min_
+                    heat = [(heat[k] - min_) / range_ for k in [0,1]]
+
+                    # [0,1] -> [0,1], 0 -> 1, 1 -> 0
+                    heat = [1 - ((heat[k] * 2 - 1) * (heat[k] * 2 - 1) * (heat[k] * 2 - 1) / 2 + 0.5) for k in [0,1]]
+
+                    # put color
+                    colormap = [apply_colormap_on_image(raw[k], heat[k], 'jet') for k in [0,1]]
+
+                    # draw a cross
+                    green = (0, 255, 0)
+                    mark_size = 5
+                    for k in range(x - mark_size, x + 1 + mark_size):
+                        if 0 <= k < colormap[0].size[0]:
+                            colormap[0].putpixel((k, y), green)
+                    for k in range(y - mark_size, y + 1 + mark_size):
+                        if 0 <= k < colormap[0].size[1]:
+                            colormap[0].putpixel((x, k), green)
+                    colormap = [transforms.ToTensor()(colormap[k]) for k in [0,1]]
+                    colormaps.append(colormap)
+
+        self.write_image(colormaps, epoch)
         self.count_acc(targets_all, preds_all, self.writer, epoch)
 
         # visualising
@@ -282,8 +353,6 @@ class DecTrainer(BaseTrainer):
         #                      self.fixed_batch["labels"], \
         #                      train=False, visualise=True)
 
-        if self.dataset == 'wikiscenes_corr':
-            
 
     def _mask_rgb(self, masks, image_norm):
         # visualising masks
@@ -318,8 +387,9 @@ class DecTrainer(BaseTrainer):
         # Fast test during the training
         def eval_batch(image, gt_labels, info):
 
+            # do not save the images to save time
             losses, cls, masks, mask_logits = \
-                    self.step(epoch, image, gt_labels, train=False, visualise=True, save_image=True, info=info)
+                    self.step(epoch, image, gt_labels, train=False, visualise=False, save_image=True, info=info)
 
             for loss_key, loss_val in losses.items():
                 stat.update_stats(loss_key, loss_val)

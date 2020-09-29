@@ -6,6 +6,7 @@ from .utils import colormap
 import datasets.transforms as tf
 import torchvision.transforms.functional as F
 from torchvision.utils import save_image as sv
+from collections import Counter
 
 class WikiScenes_corr(Dataset):
 
@@ -27,14 +28,19 @@ class WikiScenes_corr(Dataset):
         'nave', 'tower', 'transept', 'apse', 'portal'
     ]
 
-    dataset_classes = [
-        'facade', 'nave', 'altar', 'tower', 'glass', 'transept', 'portal', 'monument', 'cloister', 'dome', 'apse', 'chancel'
-    ]
+    # dataset_classes = [
+    #     'facade', 'nave', 'altar', 'tower', 'glass', 'transept', 'portal', 'monument', 'cloister', 'dome', 'apse', 'chancel'
+    # ]
     # 5023  1873    928     1099    4654    1624    1721    1419    376     283     581     804
     # 0.83  0.57    0.09    0.18    0.95    0.21    0.28    0.16    0.03    0.04    0.12    0.34
     # 18499
 
     # 0.83  0.95`   0.57    0.28    0.21    0.16    0.18    0.09    0.34    0.12    0.03    0.02
+
+
+    # dataset_classes = [
+    #     'facade', 'nave', 'altar', 'tower', 'glass', 'transept', 'portal', 'monument', 'chancel'
+    # ]
 
     # dataset_classes = [
     #     'interior', 'exterior'
@@ -104,9 +110,9 @@ class WikiSegmentation_corr(WikiScenes_corr):
 
         # train/val/test splits are pre-cut
         if self.split == 'train':
-            _split_f = os.path.join(self.root, 'split/train_12classes_30453_multi.txt')
+            _split_f = os.path.join(self.root, 'split/train_5classes_3269_corr.txt')
         elif self.split == 'val':
-            _split_f = os.path.join(self.root, 'split/val_12classes_30453_multi.txt')
+            _split_f = os.path.join(self.root, 'split/val_5classes_1000_corr.txt')
         elif self.split == 'train_voc':
             _split_f = os.path.join(self.root, 'train_voc.txt')
         elif self.split == 'test':
@@ -118,6 +124,7 @@ class WikiSegmentation_corr(WikiScenes_corr):
 
         with open("correspondence.json", 'r', encoding='utf-8') as f:
             corr = json.load(f)
+        # corr = dict()
 
         self.images = []
         self.labels = []
@@ -128,6 +135,7 @@ class WikiSegmentation_corr(WikiScenes_corr):
         self.masks = None
         self.corr_index = dict()
         with open(_split_f, "r") as lines:
+            print("building graph")
             count = 0
             for line in lines:
                 _image, label, caption, tags = line.strip("\n").split(':')
@@ -152,6 +160,16 @@ class WikiSegmentation_corr(WikiScenes_corr):
                 self.tags_list.append(tags)
                 count += 1
 
+        print("Filtering")
+        self.image_graph = dict()
+        for i, keypoint in enumerate(self.keypoints):
+            if keypoint != None:
+                t = Counter()
+                for p in keypoint:
+                    t.update(self.corr_index[p])
+                t = [key for key, cnt in t.items() if cnt >= 10]
+                if t:
+                    self.image_graph[i] = t
 
         self.transform = tf.Compose([tf.RandResizedCrop_corr(self.cfg.DATASET), \
                                      tf.HFlip_corr(), \
@@ -159,7 +177,8 @@ class WikiSegmentation_corr(WikiScenes_corr):
                                      tf.Normalise_corr(self.MEAN, self.STD)
                                      ])
 
-        print("{}/{} images have keypoints, {} keypoints in total.".format(len([k for k in self.keypoints if k != None]), len(self.keypoints), len(self.corr_index)))
+        print("{}/{} images have keypoints, {} keypoints in total, {} pairs per image.".format(len(self.image_graph), len(self.keypoints), len(self.corr_index), sum([len(k) for k in self.image_graph.values()]) / (len(self.image_graph) + 0.001)))
+        self.cnt = 0
 
     def __len__(self):
         return len(self.images)
@@ -169,11 +188,10 @@ class WikiSegmentation_corr(WikiScenes_corr):
         keypoints = self.keypoints[index]
         pair_index = None
         # find a image with correspondence
-        if keypoints != None:
-            p = random.choice(list(keypoints))
-            i = random.choice(list(self.corr_index[p]))
-            if i != index:
-                pair_index = i
+        if keypoints != None and index in self.image_graph:
+            p = random.choice(self.image_graph[index])
+            if p != index:
+                pair_index = p
         # if no correspondence, randomly pick one
         if pair_index == None:
             pair_index = random.randint(0, len(self.images) - 1)
@@ -209,6 +227,11 @@ class WikiSegmentation_corr(WikiScenes_corr):
             for i in common:
                 corr.append([*kp[0][i], *kp[1][i]])
             corr = json.dumps(corr)
+            # sv(images[0], "./images/{}.jpg".format(self.cnt))
+            # sv(images[1], "./images/{}.jpg".format(self.cnt+1))
+            # self.cnt += 2
+            # if self.cnt > 100:
+            #     quit()
         else:
             corr = "[]"
         images = {"1": images[0], "2": images[1], "corr": corr}

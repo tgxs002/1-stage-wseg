@@ -136,7 +136,7 @@ def network_factory(cfg):
             self._init_weights(pre_weights)
             self._mask_logits = None
 
-            self._fix_running_stats(self, fix_params=True) # freeze backbone BNs
+            # self._fix_running_stats(self, fix_params=True) # freeze backbone BNs
 
         def forward_backbone(self, x):
             self._mask_logits = super().forward(x)
@@ -172,6 +172,7 @@ def network_factory(cfg):
 
             cls = self.forward_cls(x)
             logits, masks = self.forward_mask(x, y.size()[-2:])
+            out_feature = x
 
             if test_mode:
                 return cls, masks
@@ -185,7 +186,7 @@ def network_factory(cfg):
             # upscale the masks & clean
             masks = self._rescale_and_clean(masks, y, labels)
 
-            return cls, cls_fg, {"cam": masks}, logits, None, None
+            return cls, cls_fg, {"cam": masks, "feature": out_feature}, logits, None, None
 
         def _rescale_and_clean(self, masks, image, labels):
             masks = F.interpolate(masks, size=image.size()[-2:], mode='bilinear', align_corners=True)
@@ -261,6 +262,13 @@ def network_factory(cfg):
                                            bnorm(256), nn.ReLU(),
                                            nn.Dropout(0.1))
             self.last_conv = nn.Sequential(conv2d(256, num_classes - 1, kernel_size=1, stride=1))
+
+            self.consistency_head = nn.Sequential(conv2d(256, 128, kernel_size=1, stride=1, padding=0, bias=False),
+                                           bnorm(128), nn.ReLU(),
+                                           conv2d(128, 64, kernel_size=1, stride=1, padding=0, bias=False),
+                                           bnorm(64), nn.ReLU(),
+                                           conv2d(64, 64, kernel_size=1, stride=1, padding=0, bias=False),
+                                           bnorm(64), nn.ReLU())
 
         def run_pamr(self, im, mask):
             im = F.interpolate(im, mask.size()[-2:], mode="bilinear", align_corners=True)
@@ -376,6 +384,8 @@ def network_factory(cfg):
             # create pseudo GT
             pseudo_gt = pseudo_gtmask(masks_dec).detach()
             loss_mask = balanced_mask_loss_ce(self._mask_logits, pseudo_gt, labels)
+
+            # out_feature = self.consistency_head(out_feature)
 
             return cls, cls_fg, {"cam": masks, "dec": masks_dec, "full": masks_full, "feature": out_feature}, self._mask_logits, pseudo_gt, loss_mask
 

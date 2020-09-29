@@ -5,7 +5,7 @@ DATASET:
   SCALE_TO: 1.0
 TRAIN:
   BATCH_SIZE: 16
-  NUM_EPOCHS: 20
+  NUM_EPOCHS: 40
   NUM_WORKERS: 1
   PRETRAIN: 5
 NET:
@@ -14,7 +14,7 @@ NET:
   PRE_WEIGHTS_PATH: "./models/weights/resnet50-19c8e357.pth"
   LR: 0.0005
   OPT: "Adam"
-  LOSS: "Separate"
+  LOSS: "SoftMargin"
   WEIGHT_DECAY: 0.0005
 TEST:
   METHOD: "multiscale" # multiscale | crop

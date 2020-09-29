@@ -124,6 +124,10 @@ class BaseTrainer(object):
         for param_group in optim.param_groups:
             param_group['lr'] = lr
 
+    def write_image(self, images, epoch):
+        for i, group in enumerate(images):
+            for j, image in enumerate(group):
+                self.writer.add_image("{}/{}".format(i, j), image, epoch)
 
     def _visualise_grid(self, x_all, labels, t, ious=None, tag="visualisation", scores=None, save_image=False, epoch=0, index=0, info=None):
 
